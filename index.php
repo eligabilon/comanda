@@ -255,7 +255,7 @@ include("menu_header.php");
                 </div>
             </div>
         </div>
-        <?php @include("teste.php") ?>
+        <?php @include("comanda.php") ?>
     </div>
 
     <?php @include("clientes_alter_full.php") ?>
