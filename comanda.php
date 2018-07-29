@@ -68,13 +68,14 @@
                                                   @submit.prevent="validateBeforeSubmit"
                                                   novalidate>
                                                 <div class="control-group">
-                                                    <label class="control-label" for="firstname">Busque
+                                                    <label class="control-label" for="firstname" v-show="!editarComanda">Busque
                                                         pela Placa</label>
                                                     <div class="controls">
                                                         <input type="text" class="span6" id="cliente"
                                                                name="Pesquisar Cliente"
-                                                               @keydown.enter.stop.prevent="getBuscaClientCarro(); selectCliente(newCliente);"
+                                                               @keyup.enter.stop.prevent="getBuscaClientCarro(); selectCliente(newCliente);"
                                                                v-model.lazy="newCliente.termo"
+                                                               v-show="!editarComanda"
                                                                :disabled="editarComanda"
                                                                placeholder="Digite a Placa do Veículo">
 
@@ -100,7 +101,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="confirma" v-for="cliente in clientes" v-if="orcamento">
+                                                <div id="confirma" v-for="cliente in clientes" v-if="newCliente.termo!=null">
 
                                                     <div class="control-group">
                                                         <label class="control-label">Situação da Comanda</label>
@@ -135,13 +136,13 @@
                                                         <div class="controls">
                                                             <label class="radio inline">
                                                                 <input type="radio" name="comanda"
-                                                                       value="ORÇAMENTO"
+                                                                       value="ORÇAMENTO" :disabled="situacaoComanda=='FECHADA'"
                                                                        v-model="radioButtonComanda"> ORÇAMENTO
                                                             </label>
 
                                                             <label class="radio inline">
                                                                 <input type="radio" name="comanda"
-                                                                       value="RECIBO"
+                                                                       value="RECIBO" :disabled="situacaoComanda=='FECHADA'"
                                                                        v-model="radioButtonComanda"> RECIBO
                                                             </label>
                                                         </div>    <!-- /controls -->
@@ -150,15 +151,17 @@
                                                     <div class="control-group">
                                                         <label class="control-label">Obs.</label>
                                                         <div class="controls">
-                                                                            <textarea rows="2" cols="10" class="span7"
-                                                                                      id="obs"
-                                                                                      v-validate="'min:5|max:500'"
-                                                                                      v-model.lazy="newComanda.obs"
-                                                                                      placeholder="Observação sobre o veículo"></textarea>
+                                                            <textarea rows="2" cols="10" class="span7"
+                                                                      id="obs"
+                                                                      :disabled="situacaoComanda=='FECHADA'"
+                                                                      v-validate="'min:5|max:500'"
+                                                                      v-model.lazy="newComanda.obs"
+                                                                      placeholder="Observação sobre o veículo"></textarea>
 
                                                             <a href="" class="btn btn-small btn-info"
-                                                               title="Salvar Comanda"
-                                                               @click.prevent="saveComanda(); comandaItem=true;"><i
+                                                               title="Alterar Comanda"
+                                                               :disabled="situacaoComanda=='FECHADA'"
+                                                               @click.prevent="updateComanda(); comandaItem=true;"><i
                                                                     class="btn-icon-only icon-save"> </i></a>
                                                         </div>
                                                     </div>
@@ -174,8 +177,9 @@
                                                         <label class="control-label"
                                                                for="firstname">Serviço</label>
                                                         <div class="controls">
-                                                            <input type="number" class="span2" id="qtd"
+                                                            <input type="text" class="span2" id="qtd"
                                                                    name="Qtd"
+                                                                   :disabled="situacaoComanda=='FECHADA'"
                                                                    v-validate="'required'"
                                                                    v-mask="'#####'"
                                                                    v-model="newItemComanda.qtd"
@@ -183,6 +187,7 @@
 
                                                             <input type="text" class="span4"
                                                                    id="descricao_servico"
+                                                                   :disabled="situacaoComanda=='FECHADA'"
                                                                    name="Descrição Serviço"
                                                                    v-model="newItemComanda.descricao_servico"
                                                                    v-validate="'required'"
@@ -193,35 +198,22 @@
                                                                 <span class="add-on">R$</span>
                                                                 <input class="span2" id="vlr_unitario"
                                                                        type="text"
+                                                                       :disabled="situacaoComanda=='FECHADA'"
                                                                        name="Vlr Unt"
                                                                        v-model="newItemComanda.vlr_unt"
                                                                        v-validate="'required'"
-                                                                       title="Valor Unitário">
+                                                                       placeholder="Valor do Serviço"
+                                                                       title="Valor Unitário do Serviço">
 
-                                                                <a href=""
+                                                                <a href="javascript:;"
                                                                    class="btn btn-small btn-success"
+                                                                   v-if="situacaoComanda!='FECHADA'"
                                                                    title="Adicionar"
                                                                    @click.prevent="saveComandaItem(); selectItemComanda(clickedItemComanda);"><i
                                                                         class="btn-icon-only icon-plus"> </i></a>
                                                             </div>
                                                         </div> <!-- /controls -->
                                                     </div> <!-- /control-group -->
-
-                                                    <div class="control-group">
-                                                        <div class="controls">
-                                                            <p><span v-show="errors.has('Qtd')"
-                                                                     class="error">{{ errors.first('Qtd') }}</span>
-                                                            </p>
-
-                                                            <p><span v-show="errors.has('Descrição Serviço')"
-                                                                     class="error">{{ errors.first('Descrição Serviço') }}</span>
-                                                            </p>
-
-                                                            <p><span v-show="errors.has('Vlr Unt')"
-                                                                     class="error">{{ errors.first('Vlr Unt') }}</span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
 
                                                     <div class="widget-content">
                                                         <table class="table table-striped table-bordered">
@@ -231,24 +223,27 @@
                                                                 <th> Descrição do Serviço</th>
                                                                 <th> Vlr. Unitário</th>
                                                                 <th> Vlr. Total</th>
-                                                                <th class="td-actions"></th>
+                                                                <th class="td-actions" v-if="situacaoComanda!='FECHADA'"></th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr v-for="item in itemComandas">
                                                                 <td> {{item.qtd}}</td>
                                                                 <td> {{item.descricao_servico}}</td>
-                                                                <td>R$ {{item.vlr_unt}}</td>
-                                                                <td>R$ {{item.qtd * item.vlr_unt}}</td>
-                                                                <td class="td-actions">
+                                                                <td>R$ {{numberToReal(item.vlr_unt)}}</td>
+                                                                <td>R$ {{numberToReal(item.qtd * item.vlr_unt)}}</td>
+                                                                <td class="td-actions" v-if="situacaoComanda!='FECHADA'">
+
                                                                     <a href="#myModal" role="button"
                                                                        data-toggle="modal"
+                                                                       :disabled="situacaoComanda=='FECHADA'"
                                                                        class="btn btn-small btn-success"
                                                                        @click="selectItemComanda(item);"><i
                                                                             class="btn-icon-only icon-pencil"
                                                                             title="Editar Item"> </i></a>
 
                                                                     <a href="javascript:;"
+                                                                       :disabled="situacaoComanda=='FECHADA'"
                                                                        class="btn btn-danger btn-small"
                                                                        @click="deleteItemComanda(item); selectItemComanda(item);"><i
                                                                             class="btn-icon-only icon-remove"
@@ -259,8 +254,8 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td><b> Total Geral:</b></td>
-                                                                <td><b>R$ {{total_geral}}</b></td>
-                                                                <td></td>
+                                                                <td><b>R$ {{numberToReal(totalGeral)}}</b></td>
+                                                                <td v-if="situacaoComanda!='FECHADA'"></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -270,7 +265,6 @@
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-primary">Imprimir
                                                     </button>
-                                                    <button class="btn">Cancelar</button>
                                                 </div> <!-- /form-actions -->
                                             </div>
                                         </fieldset>

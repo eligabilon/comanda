@@ -53,18 +53,24 @@ include("menu_header.php");
                                     <div class="widget-content">
                                         <div id="big_stats" class="cf">
                                             <div class="stat" title="Clientes Cadastrados"><i class="icon-group"></i>
+                                                Clientes<br>
                                                 <span
                                                         class="value">{{countsCi}}</span>
                                             </div>
 
                                             <div class="stat" title="Carros Cadastrados"><i class="icon-truck"></i>
+                                                Carros<br>
                                                 <span
                                                         class="value">{{countsCa}}</span></div>
 
-                                            <div class="stat" title="ORÇAMENTOS"><i class="icon-file"></i> <span
+                                            <div class="stat" title="ORÇAMENTOS"><i class="icon-file"></i>
+                                                Orçamentos<br>
+                                                <span
                                                         class="value">{{countsOr}}</span></div>
 
-                                            <div class="stat" title="RECIBOS"><i class="icon-barcode"></i> <span
+                                            <div class="stat" title="RECIBOS"><i class="icon-barcode"></i>
+                                                Recibos<br>
+                                                <span
                                                         class="value">{{countsRe}}</span>
                                             </div>
                                         </div>
@@ -172,7 +178,7 @@ include("menu_header.php");
                                                                 <td> {{comanda.descricao_servico}}</td>
                                                                 <td> {{comanda.placa}}</td>
                                                                 <td><b> {{comanda.data}}</b></td>
-                                                                <td>R$ {{comanda.vlr_unt}}</td>
+                                                                <td>R$ {{numberToReal(comanda.vlr_unt*comanda.qtd)}}</td>
                                                                 <td> {{comanda.obs}}</td>
                                                                 <td> {{comanda.tipo}}</td>
                                                                 <td> {{comanda.situacao}}</td>
@@ -180,8 +186,18 @@ include("menu_header.php");
                                                                     <a href="javascript:;"
                                                                        class="btn btn-small btn-success"
                                                                        title="Editar Item"
-                                                                       @click="selectComanda(comanda);editarComanda=true; "><i
-                                                                                class="btn-icon-only icon-pencil"> </i></a>
+                                                                       @click="selectComanda(comanda); editarComanda=true; getBuscaClientCarro(); getItemComandasIdCarro();">
+                                                                        <i class="btn-icon-only icon-pencil" v-if="(comanda.situacao!='FECHADA')"> </i>
+                                                                        <i class="btn-icon-only icon-search" v-else> </i>
+                                                                    </a>
+
+
+                                                                    <a href="javascript:;"
+                                                                       v-if="(comanda.situacao!='FECHADA')"
+                                                                       class="btn btn-danger btn-small"
+                                                                       @click="deleteComanda(comanda); selectComanda(comanda); getReadComandas()"><i
+                                                                                class="btn-icon-only icon-remove"
+                                                                                title="Excluir Item"> </i></a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>

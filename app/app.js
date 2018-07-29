@@ -25,7 +25,7 @@ var app = new Vue({
             countsCa: [],
             countsOr: [],
             countsRe: [],
-            total_geral: "",
+            totalGeral: [],
             id: [],
             clientes: [],
             newCliente: {id_cliente: "", id: "", nome: "", cpf_cnpj: "", insc_estadual: "", email: "", tel: "", cel: "", termo: "", placa: "", id_carro: ""},
@@ -471,6 +471,12 @@ var app = new Vue({
             },
 
             selectComanda(comanda) {
+                app.newCliente.termo = comanda.placa;
+                app.radioButtonComanda = comanda.tipo;
+                app.situacaoComanda = comanda.situacao;
+                app.data = comanda.data;
+                app.clickedItemComanda.id_comanda = comanda.id;
+                app.newComanda.obs = comanda.obs;
                 app.clickedComanda = comanda;
             },
 
@@ -539,6 +545,11 @@ var app = new Vue({
             },
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            numberToReal(numero) {
+                var numero = (numero == null ? numero = 0 : numero).toLocaleString('pt-br', {minimumFractionDigits: 2});
+                return numero;
+            },
+
             toFormData: function (obj) {
                 var form_data = new FormData();
                 for (var key in obj) {
@@ -580,6 +591,7 @@ var app = new Vue({
                 newEndereco = "",
                 clickedEndereco = ""
             },
+
         }
     })
 ;

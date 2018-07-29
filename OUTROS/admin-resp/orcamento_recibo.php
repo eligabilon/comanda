@@ -301,7 +301,7 @@ include("menu_header.php");
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td><b> Total Geral:</b></td>
-                                                                        <td><b>R$ {{total_geral}}</b></td>
+                                                                        <td><b>R$ {{totalGeral}}</b></td>
                                                                         <td></td>
                                                                     </tr>
                                                                     </tbody>

@@ -216,7 +216,7 @@ include("menu_header.php");
                                                                 <label class="control-label"
                                                                        for="firstname">Serviço</label>
                                                                 <div class="controls">
-                                                                    <input type="number" class="span2" id="qtd"
+                                                                    <input type="text" class="span2" id="qtd"
                                                                            name="Qtd"
                                                                            v-validate="'required'"
                                                                            v-mask="'#####'"
@@ -249,22 +249,6 @@ include("menu_header.php");
                                                                 </div> <!-- /controls -->
                                                             </div> <!-- /control-group -->
 
-                                                            <div class="control-group">
-                                                                <div class="controls">
-                                                                    <p><span v-show="errors.has('Qtd')"
-                                                                             class="error">{{ errors.first('Qtd') }}</span>
-                                                                    </p>
-
-                                                                    <p><span v-show="errors.has('Descrição Serviço')"
-                                                                             class="error">{{ errors.first('Descrição Serviço') }}</span>
-                                                                    </p>
-
-                                                                    <p><span v-show="errors.has('Vlr Unt')"
-                                                                             class="error">{{ errors.first('Vlr Unt') }}</span>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-
                                                             <div class="widget-content">
                                                                 <table class="table table-striped table-bordered">
                                                                     <thead>
@@ -280,8 +264,8 @@ include("menu_header.php");
                                                                     <tr v-for="item in itemComandas">
                                                                         <td> {{item.qtd}}</td>
                                                                         <td> {{item.descricao_servico}}</td>
-                                                                        <td>R$ {{item.vlr_unt}}</td>
-                                                                        <td>R$ {{item.qtd * item.vlr_unt}}</td>
+                                                                        <td>R$ {{numberToReal(item.vlr_unt)}}</td>
+                                                                        <td>R$ {{numberToReal(item.qtd * item.vlr_unt)}}</td>
                                                                         <td class="td-actions">
                                                                             <a href="#myModal" role="button"
                                                                                data-toggle="modal"
@@ -301,7 +285,7 @@ include("menu_header.php");
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td><b> Total Geral:</b></td>
-                                                                        <td><b>R$ {{total_geral}}</b></td>
+                                                                        <td><b>R$ {{numberToReal(totalGeral)}}</b></td>
                                                                         <td></td>
                                                                     </tr>
                                                                     </tbody>
@@ -312,7 +296,6 @@ include("menu_header.php");
                                                         <div class="form-actions">
                                                             <button type="submit" class="btn btn-primary">Imprimir
                                                             </button>
-                                                            <button class="btn">Cancelar</button>
                                                         </div> <!-- /form-actions -->
                                                     </div>
                                                 </fieldset>

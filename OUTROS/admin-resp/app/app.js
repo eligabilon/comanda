@@ -25,7 +25,7 @@ var app = new Vue({
             countsCa: [],
             countsOr: [],
             countsRe: [],
-            total_geral: "",
+            totalGeral: "",
             id: [],
             clientes: [],
             newCliente: {id_cliente: "", id: "", nome: "", cpf_cnpj: "", insc_estadual: "", email: "", tel: "", cel: "", termo: "", placa: "", id_carro: ""},
