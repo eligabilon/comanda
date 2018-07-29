@@ -39,6 +39,30 @@ include("menu_header.php");
 <div id="root">
 
     <div class="main" v-if="!varClienteFull">
+
+        <!-- MODAL DELETE COMANDA -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Deletar Comanda ABERTA</h3>
+            </div>
+            <div class="modal-body">
+                <div class="control-group">
+                    <div class="controls">
+                        <span><h3>Deseja <b>deletar</b> o <font color="red">{{clickedComanda.tipo}}</font> de <font color="red">Nº {{clickedComanda.id}}</font>?</h3></span>
+                    </div> <!-- /controls -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary"
+                        @click="deleteComanda(comanda); comandaItem=true; getReadComandas();">Sim
+                </button>
+            </div>
+        </div>
+        <!-- FIM MODAL DELETE COMANDA -->
+
         <div class="main-inner">
             <div class="container">
                 <div class="row">
@@ -164,7 +188,6 @@ include("menu_header.php");
                                                                 <th> Descrição do Serviço</th>
                                                                 <th> Placa</th>
                                                                 <th> Data</th>
-                                                                <th> Vlr. Unitário</th>
                                                                 <th> Obs</th>
                                                                 <th> Tipo</th>
                                                                 <th> Situação</th>
@@ -178,7 +201,6 @@ include("menu_header.php");
                                                                 <td> {{comanda.descricao_servico}}</td>
                                                                 <td> {{comanda.placa}}</td>
                                                                 <td><b> {{comanda.data}}</b></td>
-                                                                <td>R$ {{numberToReal(comanda.vlr_unt*comanda.qtd)}}</td>
                                                                 <td> {{comanda.obs}}</td>
                                                                 <td> {{comanda.tipo}}</td>
                                                                 <td> {{comanda.situacao}}</td>
@@ -192,10 +214,11 @@ include("menu_header.php");
                                                                     </a>
 
 
-                                                                    <a href="javascript:;"
+                                                                    <a href="#myModal" role="button"
+                                                                       data-toggle="modal"
                                                                        v-if="(comanda.situacao!='FECHADA')"
                                                                        class="btn btn-danger btn-small"
-                                                                       @click="deleteComanda(comanda); selectComanda(comanda); getReadComandas()"><i
+                                                                       @click="selectComanda(comanda);"><i
                                                                                 class="btn-icon-only icon-remove"
                                                                                 title="Excluir Item"> </i></a>
                                                                 </td>
