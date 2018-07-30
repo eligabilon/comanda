@@ -10,9 +10,9 @@
     <div class="subnavbar-inner">
         <div class="container">
             <ul class="mainnav">
-                <li class="active"><a href="index.php"><i class="icon-dashboard"></i><span>HOME</span> </a></li>
-                <li><a href="clientes.php"><i class="icon-group"></i><span>ADD CLIENTES</span> </a></li>
-                <li><a href="orcamento_recibo.php"><i class="icon-file"></i><span>ADD COMANDA</span> </a></li>
+                <li class="active"><a href="index.php"><i class="icon-dashboard"></i><span>INÍCIO</span> </a></li>
+                <li><a href="clientes.php"><i class="icon-group"></i><span>CADASTRO CLIENTES</span> </a></li>
+                <li><a href="orcamento_recibo.php"><i class="icon-file"></i><span>CADASTRO ORÇAMENTO/RECIBO</span> </a></li>
             </ul>
         </div>
     </div>

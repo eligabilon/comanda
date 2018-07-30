@@ -107,7 +107,7 @@ include("menu_header.php");
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-header"><i class="icon-bookmark"></i>
-                                <h3>Atalhos</h3>
+                                <h3>Todos as Relações</h3>
                             </div>
                             <!-- /widget-header -->
                             <div class="widget-content">
@@ -115,17 +115,17 @@ include("menu_header.php");
 
                                     <a href="clientes_all.php" class="shortcut"><i
                                                 class="shortcut-icon icon-user"></i>
-                                        <span class="shortcut-label">Todos os Clientes</span> </a>
+                                        <span class="shortcut-label">Clientes</span> </a>
 
                                     <a href="carros_all.php" class="shortcut"><i
                                                 class="shortcut-icon icon-truck"
                                                 @click="telaCarro=true; execut();"></i>
-                                        <span class="shortcut-label">Todos os Carros</span> </a>
+                                        <span class="shortcut-label">Carros</span> </a>
 
                                     <a href="javascript:;" class="shortcut"
                                        @click="comandaItem=true; getReadComandas()">
                                         <i class="shortcut-icon icon-file"></i>
-                                        <span class="shortcut-label">Orçamento/Recibo</span> </a>
+                                        <span class="shortcut-label">Orçamentos/Recibos</span> </a>
 
                                 </div>
                             </div>
