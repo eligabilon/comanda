@@ -23,29 +23,11 @@
 					
 					<div class='cabecalho'>
 
-						<table border='0px' width='100%' height='100%'>
+						<table border='0' width='100%' height='100%'>
 							<tbody>
 								<tr>
-									<td></td>
-									<td>ORÇAMENTO</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td colspan='6' align=''>Data______de______________________de 20_____.</td>
-								</tr>
-								<tr>
-									<td colspan='6'>Nome:</td>
-									<td></td>
+									<td style=\"text-align:right;\"><input type='radio'> ORÇAMENTO</td>
+									<td style=\"text-align:right;\"><input type='radio'> RECIBO</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -53,7 +35,25 @@
 									<td></td>
 								</tr>
 								<tr>
-									<td colspan='6'>Endereço:</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td colspan='6' align=''>Data______de_Campo Grande_de 20_____.</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan='8'>Nome: _________________________________________________________________________</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan='8'>Endereço: ______________________________________________________________________</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -62,36 +62,36 @@
 									<td></td>
 								</tr>	
 								<tr>
-									<td colspan='2'>Bairro:</td>
-									<td colspan='2'>Fone:</td>
+									<td colspan='4'>Bairro: _______________________________________</td>
 									<td></td>
+									<td colspan='6'>Fone: ________________________</td>
 									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
 								</tr>	
 								<tr>
-									<td colspan='2'>Cidade:</td>
-									<td colspan='2'>Estado:</td>
+									<td colspan='4'>Cidade: ______________________________________</td>
 									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td colspan='2'>CNPJ/CPF:</td>
-									<td colspan='2'>Insc. Est.:</td>
-									<td></td>
+									<td colspan='6'>Estado: __________</td>
 									<td></td>
 									<td></td>
 									<td></td>
 									<td></td>
 								</tr>
 								<tr>
-									<td colspan='2'>Marca:</td>
-									<td colspan='2'>Placa:</td>
+									<td colspan='4'>CNPJ/CPF: ____________________________________</td>
 									<td></td>
+									<td colspan='6'>Insc. Est.: ____________________</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan='4'>Marca: _______________________________________</td>
+									<td></td>
+									<td colspan='6'>Placa: ________________________</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -128,6 +128,120 @@
 						<td height='20px'></td>
 						<td height='20px'></td>
 						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
+												<tr>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						<td height='20px'></td>
+						</tr>
 						</tbody>
 						</table>
 					</div>
@@ -137,7 +251,14 @@
                           <tr>
                             <td height='25px' style=\"text-align:right;\">Condição de Pagto:</td>
                             <td colspan=\"2\" height='25px' style=\"text-align:left;\">_____________________________________</td>
-                            <td colspan=\"3\" rowspan=\"2\"></td>
+                            <td colspan=\"3\" rowspan=\"2\" style=\"text-align:right;\">
+                            <b>TOTAL GERAL</b>
+                            <table width='40%' height='100%' border='1'>
+                                <tr>
+                                    <td height='25px' style=\"text-align:right; font-size:16px\"><b></b></td>
+                                </tr>
+                            </table>
+                            </td>
                           </tr>
                           <tr>
                             <td height='25px' style=\"text-align:right;\">Prazo de Entrega:</td>
