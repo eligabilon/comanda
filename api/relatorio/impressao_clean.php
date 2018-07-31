@@ -16,7 +16,7 @@
 						<h3 style='color: red;'>LEVE SEU CARRO A QUEM ENTENDE</h3>
 						<h4 style='color: blue;'>ALINHAMENTO E BALANCEAMENTO, CASTER.<br>
 						EIXOS DIANTEIROS, TRASEIROS, SUSPENSÃO.</h4>
-						<h4 style='color: red;margin-top: 3pt;'>Seu carro esta gastando pneus? Procure-nos</h4>
+						<h4 style='color: red;margin-top: 3pt;'>SEU CARRO ESTÁ GASTANDO PNEUS? PROCURE-NOS</h4>
 						<h6 style='color: blue;'>É NA RUA IRIA LOUREIRO, 206 - Fone: 3324-8418 - Centro - Campo Grande - MS<br>
 						Facebook: quatroxquatromonobloco - e-mail: 4x4monobloco@uol.com.br</h6>
 					</div>
@@ -73,7 +73,7 @@
 								<tr>
 									<td colspan='4'>Cidade: ______________________________________</td>
 									<td></td>
-									<td colspan='6'>Estado: __________</td>
+									<td colspan='6'>Estado: ______________________</td>
 									<td></td>
 									<td></td>
 									<td></td>

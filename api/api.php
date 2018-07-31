@@ -100,6 +100,10 @@ if ($action == 'read-carro-cliente') {
     $res['carros'] = $objs;
 }
 
+if ($action == 'relatorio-comanda-full') {
+
+}
+
 if ($action == 'query-cliente-carro') {
     $termo = $_POST['termo'];
 

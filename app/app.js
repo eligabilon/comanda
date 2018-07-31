@@ -470,6 +470,11 @@ var app = new Vue({
                     });
             },
 
+            getImprimirRelatorioFull: function () {
+                alert(url + "relatorio/impressao_clean.php");
+                axios.post(url + '/relatorio/impressao_clean.php', '_blank');
+            },
+
             selectComanda(comanda) {
                 app.newCliente.termo = comanda.placa;
                 app.radioButtonComanda = comanda.tipo;

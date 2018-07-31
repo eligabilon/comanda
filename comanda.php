@@ -263,7 +263,9 @@
                                                 </form>
 
                                                 <div class="form-actions">
-                                                    <button type="submit" class="btn btn-primary">Imprimir
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="btn-icon-only icon-print"
+                                                           title="Imprimir Orçamento/Recibo"> Imprimir </i>
                                                     </button>
                                                 </div> <!-- /form-actions -->
                                             </div>
