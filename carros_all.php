@@ -19,15 +19,15 @@
     <![endif]-->
 
     <!--AXIOS-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+    <script type="text/javascript" src="libs/axios.min.js"></script>
 
     <!--VALIDATE-->
-    <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.0.9/dist/vee-validate.min.js"></script>
+    <script src="libs/vee-validate.min.js"></script>
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.9/locale/pt_BR.js"></script>
+            src="libs/pt_BR.js"></script>
 
     <!--MASK-->
-    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script src="libs/v-mask.min.js"></script>
 
     <script>
         window.setTimeout(function(){
@@ -121,7 +121,7 @@ include("menu_header.php");
 
 <?php include("rodape.php"); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<script type="text/javascript" src="libs/vue.js"></script>
 <script src="app/config.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
 <!-- Placed at the end of the document so the pages load faster -->
