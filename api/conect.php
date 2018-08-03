@@ -8,7 +8,7 @@
 
 $host="localhost";
 $user="root";
-$pass="";
+$pass="root";
 $db="bd_oficina_4x4";
 
 
