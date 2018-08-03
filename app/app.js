@@ -470,9 +470,9 @@ var app = new Vue({
                     });
             },
 
-            getImprimirRelatorioFull: function () {
+            getImprimirRelatorioClean: function () {
                 alert(url + "relatorio/impressao_clean.php");
-                axios.post(url + '/relatorio/impressao_clean.php', '_blank');
+                window.open(url + '/relatorio/impressao_clean.php', '_blank');
             },
 
             selectComanda(comanda) {
