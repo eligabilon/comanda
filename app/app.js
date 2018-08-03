@@ -471,7 +471,6 @@ var app = new Vue({
             },
 
             getImprimirRelatorioClean: function () {
-                alert(url + "relatorio/impressao_clean.php");
                 window.open(url + '/relatorio/impressao_clean.php', '_blank');
             },
 
