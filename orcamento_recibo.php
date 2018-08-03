@@ -296,7 +296,8 @@ include("menu_header.php");
                                                         <div class="form-actions">
                                                             <button type="submit" class="btn btn-primary">
                                                                 <i class="btn-icon-only icon-print"
-                                                                        title="Imprimir Orçamento/Recibo"> Imprimir </i>
+                                                                   @click="getimprimirOrcamentoRecibo()"
+                                                                   title="Imprimir Orçamento/Recibo"> Imprimir </i>
                                                             </button>
                                                         </div> <!-- /form-actions -->
                                                     </div>

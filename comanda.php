@@ -265,6 +265,7 @@
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-primary">
                                                         <i class="btn-icon-only icon-print"
+                                                           @click="getimprimirOrcamentoRecibo(); selectItemComanda(item);"
                                                            title="Imprimir Orçamento/Recibo"> Imprimir </i>
                                                     </button>
                                                 </div> <!-- /form-actions -->

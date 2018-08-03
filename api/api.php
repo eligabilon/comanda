@@ -100,8 +100,14 @@ if ($action == 'read-carro-cliente') {
     $res['carros'] = $objs;
 }
 
-if ($action == 'relatorio-comanda-full') {
+if ($action == 'imprimir-comanda') {
+    $id = $_POST['id'];
 
+    $result = $conn->query("SELECT tc.id AS id_comanda, tc.tipo, tc.obs, DATE_FORMAT(tc.data, '%d/%m/%Y') AS data, tc.situacao, tc.id_carro, ic.id AS id_item_comanda, ic.qtd, ic.descricao_servico, ic.vlr_unt, (ic.qtd*ic.vlr_unt) AS vlr_total, cl.id AS id_cliente, cl.nome, cl.cpf_cnpj, cl.insc_estadual, cl.cel, cl.tel, cl.email FROM tab_comanda tc JOIN tab_itens_comanda ic ON ic.id_comanda = tc.id JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente WHERE tc.id = '$id' ");
+    $result2 = $conn->query("SELECT SUM((ic.qtd*ic.vlr_unt)) FROM tab_itens_comanda ic WHERE ic.id_comanda = '$id'");
+    while ($row = $result->fetch_assoc()) {
+        array_push($objs, $row);
+    }
 }
 
 if ($action == 'query-cliente-carro') {
@@ -173,9 +179,10 @@ if ($action == 'query-comanda-item') {
     }
     $res['itemComandas'] = $objs;
 
+    $objsTot = array();
     $result2 = $conn->query("SELECT SUM((ic.qtd*ic.vlr_unt)) FROM tab_itens_comanda ic WHERE ic.id_comanda = '$id'");
     $row2 = $result2->fetch_row();
-    array_push($objs, $row2);
+    array_push($objsTot, $row2);
     $res['totalGeral'] = $row2;
 }
 

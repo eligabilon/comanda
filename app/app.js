@@ -363,6 +363,7 @@ var app = new Vue({
                             app.errorMessage = response.data.message;
                         } else {
                             app.comandas = response.data.comandas;
+                            app.totalGeral = response.data.totalGeral;
                         }
                     });
             },
@@ -470,6 +471,20 @@ var app = new Vue({
                     });
             },
 
+            getimprimirOrcamentoRecibo: function () {
+                var formData = app.toFormData(app.clickedComanda);
+                axios.post(url + "api.php?action=imprimir-comanda", formData)
+                    .then(function (response) {
+                        app.app.clickedComanda = {};
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.clickedComanda.id = response.data.id[0];
+                        }
+                    });
+            },
+
             getImprimirRelatorioClean: function () {
                 window.open(url + '/relatorio/impressao_clean.php', '_blank');
             },
@@ -496,6 +511,7 @@ var app = new Vue({
                         } else {
                             app.itemComandas = response.data.itemComandas;
                             app.clickedItemComanda.id = response.data.id[0];
+                            app.totalGeral = response.data.totalGeral;
                         }
                     });
             },
