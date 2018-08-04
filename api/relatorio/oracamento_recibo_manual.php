@@ -231,7 +231,7 @@ if (!empty($id)) {
                 <table width='100%' height='60%' border='1'>
                     <tr>
                         <td height='25px' style="text-align:right; vertical-align: bottom; font-size:26px
-                        "><b> R$ <?php print($total_geral["total_geral"]) ?>  </b></td>
+                        "><b> R$  </b></td>
                     </tr>
                 </table>
             </td>
