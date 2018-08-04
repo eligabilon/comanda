@@ -38,11 +38,11 @@
 </head>
 <body>
 
-<?php
-include("menu_header.php");
-?>
-
 <div id="root">
+
+    <?php
+    include("menu_header.php");
+    ?>
 
     <div class="main" v-if="!varClienteFull">
         <div class="main-inner">

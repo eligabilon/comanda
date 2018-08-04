@@ -473,20 +473,16 @@ var app = new Vue({
 
             getimprimirOrcamentoRecibo: function () {
                 var formData = app.toFormData(app.clickedComanda);
-                axios.post(url + "api.php?action=imprimir-comanda", formData)
+                axios.post(url + "relatorio/impressao.php?id=", formData)
                     .then(function (response) {
                         app.app.clickedComanda = {};
-                        if (response.data.error) {
-                            app.errorMessage = response.data.message;
-                        } else {
-                            app.successMessage = response.data.message;
-                            app.clickedComanda.id = response.data.id[0];
-                        }
+                            alert(url + 'relatorio/impressao.php', '_blank');
+                            window.open(url + 'relatorio/impressao.php', '_blank');
                     });
             },
 
             getImprimirRelatorioClean: function () {
-                window.open(url + '/relatorio/impressao_clean.php', '_blank');
+                window.open(url + 'relatorio/impressao_clean.php', '_blank');
             },
 
             selectComanda(comanda) {

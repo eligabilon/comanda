@@ -1,6 +1,6 @@
 <div id="editCom" v-if="editarComanda">
     <!-- MODAL ITEM COMANDA -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalE" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -234,7 +234,7 @@
                                                                 <td>R$ {{numberToReal(item.qtd * item.vlr_unt)}}</td>
                                                                 <td class="td-actions" v-if="situacaoComanda!='FECHADA'">
 
-                                                                    <a href="#myModal" role="button"
+                                                                    <a href="#myModalE" role="button"
                                                                        data-toggle="modal"
                                                                        :disabled="situacaoComanda=='FECHADA'"
                                                                        class="btn btn-small btn-success"
@@ -263,11 +263,11 @@
                                                 </form>
 
                                                 <div class="form-actions">
-                                                    <button type="submit" class="btn btn-primary">
+                                                    <a href="javascript:;" class="btn btn-primary">
                                                         <i class="btn-icon-only icon-print"
-                                                           @click="getimprimirOrcamentoRecibo(); selectItemComanda(item);"
+                                                           @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo();"
                                                            title="Imprimir Orçamento/Recibo"> Imprimir </i>
-                                                    </button>
+                                                    </a>
                                                 </div> <!-- /form-actions -->
                                             </div>
                                         </fieldset>

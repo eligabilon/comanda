@@ -61,7 +61,7 @@ if ($action == 'read-comanda') {
 }
 
 if ($action == 'read-comanda-todos') {
-    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id,ic.qtd,ic.descricao_servico,ic.id GROUP BY tc.id ORDER BY tc.id DESC");
+    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id GROUP BY tc.id, ic.qtd, ic.descricao_servico, ic.id ORDER BY tc.id DESC ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -69,7 +69,7 @@ if ($action == 'read-comanda-todos') {
 }
 
 if ($action == 'read-comanda-aberta') {
-    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id where tc.situacao = 'ABERTA' GROUP BY tc.id,ic.qtd,ic.descricao_servico,ic.id ORDER BY tc.id DESC");
+    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id where tc.situacao = 'ABERTA' GROUP BY tc.id,ic.qtd,ic.descricao_servico,ic.id ORDER BY tc.id DESC ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -77,7 +77,7 @@ if ($action == 'read-comanda-aberta') {
 }
 
 if ($action == 'read-comanda-fechada') {
-    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id where tc.situacao = 'FECHADA' GROUP BY tc.id,ic.qtd,ic.descricao_servico,ic.id ORDER BY tc.id DESC");
+    $result = $conn->query("SELECT ci.nome, tc.id, tc.tipo, DATE_FORMAT(tc.data,'%d/%m/%Y') as data, tc.obs, tc.situacao, ic.qtd, ic.descricao_servico, sum(ic.vlr_unt) as vlr_unt, ic.id as id_item_comanda, ca.placa, ca.id as id_carro FROM tab_comanda tc left join tab_carro ca on ca.id = tc.id_carro left join tab_cliente ci on ca.id_cliente = ci.id left join tab_itens_comanda ic on ic.id_comanda = tc.id where tc.situacao = 'FECHADA' GROUP BY tc.id,ic.qtd,ic.descricao_servico,ic.id ORDER BY tc.id DESC ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -100,15 +100,11 @@ if ($action == 'read-carro-cliente') {
     $res['carros'] = $objs;
 }
 
-if ($action == 'imprimir-comanda') {
-    $id = $_POST['id'];
-
-    $result = $conn->query("SELECT tc.id AS id_comanda, tc.tipo, tc.obs, DATE_FORMAT(tc.data, '%d/%m/%Y') AS data, tc.situacao, tc.id_carro, ic.id AS id_item_comanda, ic.qtd, ic.descricao_servico, ic.vlr_unt, (ic.qtd*ic.vlr_unt) AS vlr_total, cl.id AS id_cliente, cl.nome, cl.cpf_cnpj, cl.insc_estadual, cl.cel, cl.tel, cl.email FROM tab_comanda tc JOIN tab_itens_comanda ic ON ic.id_comanda = tc.id JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente WHERE tc.id = '$id' ");
-    $result2 = $conn->query("SELECT SUM((ic.qtd*ic.vlr_unt)) FROM tab_itens_comanda ic WHERE ic.id_comanda = '$id'");
-    while ($row = $result->fetch_assoc()) {
-        array_push($objs, $row);
-    }
-}
+//if ($action == 'imprimir-comanda') {
+//    $id = $_POST['id'];
+//
+//    header("Location: http://localhost:90/OFICINA-4X4/api/relatorio/impressao.php?id=$id");
+//}
 
 if ($action == 'query-cliente-carro') {
     $termo = $_POST['termo'];

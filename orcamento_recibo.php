@@ -37,11 +37,11 @@
 
 <body>
 
-<?php
-include("menu_header.php");
-?>
 
 <div id="root">
+    <?php
+    include("menu_header.php");
+    ?>
     <div class="main">
 
         <!-- MODAL ITEM COMANDA -->
@@ -296,7 +296,7 @@ include("menu_header.php");
                                                         <div class="form-actions">
                                                             <button type="submit" class="btn btn-primary">
                                                                 <i class="btn-icon-only icon-print"
-                                                                   @click="getimprimirOrcamentoRecibo()"
+                                                                   @click="selectItemComanda(clickedItemComanda); getimprimirOrcamentoRecibo();"
                                                                    title="Imprimir Orçamento/Recibo"> Imprimir </i>
                                                             </button>
                                                         </div> <!-- /form-actions -->
