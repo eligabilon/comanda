@@ -96,11 +96,6 @@ include("menu_header.php");
                                             <input type="text" v-model="cliente.id_cliente" v-show="false"/>
 
                                             <button @click="carregaIdCliente(cliente); getEnderecosIdCliente(); getCarrosIdCliente();"
-                                                    class="btn btn-small btn-success"
-                                                    title="Ver Orçamento/Recibo do cliente">
-                                                <i class="btn-icon-only icon-file"></i></button>
-
-                                            <button @click="carregaIdCliente(cliente); getEnderecosIdCliente(); getCarrosIdCliente();"
                                                     class="btn btn-small btn-success" title="Editar Cliente">
                                                 <i class="btn-icon-only icon-edit"></i></button>
                                     </tr>
