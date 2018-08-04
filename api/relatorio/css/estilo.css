@@ -52,6 +52,21 @@ fieldset {
     border-color: #333;
 }
 
+.obs {
+    background: #fff;
+    width: 750px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #333;
+}
+
 .rodape {
     background: #fff;
     width: 750px;

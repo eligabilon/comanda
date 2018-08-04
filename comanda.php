@@ -155,13 +155,13 @@
                                                                       id="obs"
                                                                       :disabled="situacaoComanda=='FECHADA'"
                                                                       v-validate="'min:5|max:500'"
-                                                                      v-model.lazy="newComanda.obs"
+                                                                      v-model.lazy="clickedComanda.obs"
                                                                       placeholder="Observação sobre o veículo"></textarea>
 
-                                                            <a href="" class="btn btn-small btn-info"
+                                                            <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id != null"
                                                                title="Alterar Comanda"
                                                                :disabled="situacaoComanda=='FECHADA'"
-                                                               @click.prevent="updateComanda(); comandaItem=true;"><i
+                                                               @click.prevent="updateComanda(); comandaItem=true; selectComanda(clickedComanda);"><i
                                                                     class="btn-icon-only icon-save"> </i></a>
                                                         </div>
                                                     </div>

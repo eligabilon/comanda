@@ -15,7 +15,8 @@
                 <li><a href="orcamento_recibo.php"><i class="icon-file"></i><span>CADASTRAR ORÇAMENTO/RECIBO</span> </a></li>
                 <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-print"></i><span>RELATÓRIOS</span> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:;" @click="getImprimirRelatorioClean()">Orçamento/Recibo Manual</a></li>
+                        <li><a href="javascript:;" @click="getImprimirRelatorioManual()">Orçamento/Recibo Manual</a></li>
+                        <li><a href="javascript:;" @click="getImprimirRelatorioClean()">Orçamento/Recibo Limpo</a></li>
                     </ul>
                 </li>
             </ul>

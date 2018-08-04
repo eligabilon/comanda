@@ -8,9 +8,12 @@
 
 $host="localhost";
 $user="root";
-$pass="root";
+$pass="";
 $db="bd_oficina_4x4";
 
+
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+date_default_timezone_set('America/Sao_Paulo');
 
 $conn = new mysqli($host, $user, $pass, $db);
 $conn->set_charset("utf8");

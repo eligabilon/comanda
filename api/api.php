@@ -14,7 +14,7 @@ if (isset($_GET['action'])) {
 $objs = array();
 
 if ($action == 'read') {
-    $result = $conn->query("SELECT cli.id as id_cliente, cli.nome, cli.tel, cli.cel, cli.cpf_cnpj, com.id, DATE_FORMAT(com.data,'%d/%m/%Y') as data, car.placa FROM tab_cliente AS cli LEFT JOIN tab_carro AS car ON cli.id = car.id_cliente LEFT JOIN tab_comanda AS com ON car.id = com.id_carro ORDER BY cli.id DESC limit 5 ");
+    $result = $conn->query("SELECT DISTINCT cli.id as id_cliente, cli.nome, cli.tel, cli.cel, cli.cpf_cnpj, DATE_FORMAT(com.data,'%d/%m/%Y') as data, car.placa FROM tab_cliente AS cli LEFT JOIN tab_carro AS car ON cli.id = car.id_cliente LEFT JOIN tab_comanda AS com ON car.id = com.id_carro ORDER BY cli.id DESC limit 5 ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -99,12 +99,6 @@ if ($action == 'read-carro-cliente') {
     }
     $res['carros'] = $objs;
 }
-
-//if ($action == 'imprimir-comanda') {
-//    $id = $_POST['id'];
-//
-//    header("Location: http://localhost:90/OFICINA-4X4/api/relatorio/impressao.php?id=$id");
-//}
 
 if ($action == 'query-cliente-carro') {
     $termo = $_POST['termo'];
@@ -362,13 +356,10 @@ if ($action == 'update-endereco') {
 if ($action == 'update-comanda') {
     $id = $_POST['id'];
     $tipo = $_POST['tipo'];
-    $qtd = $_POST['qtd'];
-    $descricao_servico = $_POST['descricao_servico'];
-    $vlr_unt = $_POST['vlr_unt'];
-    $data = $_POST['data'];
     $obs = $_POST['obs'];
-    if (!empty($id) && !empty($qtd)) {
-        $result = $conn->query("UPDATE `tab_comanda` SET `tipo` = '$tipo', `qtd` = '$qtd', `descricao_servico` = '$descricao_servico', `vlr_unt` = '$vlr_unt', `data` = '$data', `obs` = '$obs' WHERE `id` = '$id'");
+    if (!empty($id)) {
+        $result = $conn->query("UPDATE `tab_comanda` SET `tipo` = '$tipo', `obs` = '$obs' WHERE `id` = '$id' ");
+        $res['id'] = $id;
         if ($result) {
             $res['message'] = "Registro alterado com sucesso...";
         } else {

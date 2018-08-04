@@ -198,7 +198,7 @@
                                                                                   v-model.lazy="newComanda.obs"
                                                                                   placeholder="Observação sobre o veículo"></textarea>
 
-                                                                    <a href="" class="btn btn-small btn-info"
+                                                                    <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id == null"
                                                                        title="Salvar Comanda"
                                                                        @click.prevent="saveComanda(); comandaItem=true;"><i
                                                                                 class="btn-icon-only icon-save"> </i></a>

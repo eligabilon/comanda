@@ -295,18 +295,12 @@ if (!empty($id)) {
 				</body>
 			</html>";
 
-     $res['print'] = 'http://localhost:90/OFICINA-4X4/api/relatorio/impressao.php';
-
-     $conn->close();
-     header("Content-type: application/json");
-     echo json_encode($res);
-
 	 $mpdf=new mPDF();
 	 $mpdf->SetDisplayMode('fullpage');
 	 $css = file_get_contents('css/estilo.css');
 	 $mpdf->WriteHTML($css,1);
 	 $mpdf->WriteHTML($html);
-	 $mpdf->Output('orcamento_recibo.pdf');
+	 $mpdf->Output('4x4-'.date('d-m-Y-H.i.s').'.pdf');
 
 	 exit;
 ?>

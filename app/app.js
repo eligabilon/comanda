@@ -16,6 +16,7 @@ var app = new Vue({
             orcamento: false,
             telaCarro: false,
             editarComanda: false,
+            imprimir: false,
             radioButtonComanda: "ORÇAMENTO",
             situacaoComanda: "ABERTA",
             errorMessage: "",
@@ -37,7 +38,7 @@ var app = new Vue({
             newEndereco: {id: "", cep: "", rua: "", numero: "", bairro: "", cidade: "", estado: "", tipo_endereco: "", id_cliente: ""},
             clickedEndereco: {},
             comandas: [],
-            newComanda: {id: "", tipo: "", qtd: "", descricao_servico: "", vlr_unt: "", data: "", obs: "", vlr_total:"", situacao:"",id_item_comanda:"", nome:"", id_carro: "", placa:""},
+            newComanda: {id: "", tipo: "", qtd: "", descricao_servico: "", vlr_unt: "", data: "", obs: "", vlr_total:"", situacao:"",id_item_comanda:"", nome:"", id_carro: "", placa:"", id_cliente:""},
             clickedComanda: {},
             itemComandas: [],
             newItemComanda: {id: "", qtd: "", descricao_servico: "", vlr_unt: "", vlr_total:"",id_comanda:""},
@@ -444,6 +445,7 @@ var app = new Vue({
             },
 
             updateComanda: function () {
+                app.clickedComanda.tipo = app.radioButtonComanda;
                 var formData = app.toFormData(app.clickedComanda);
                 axios.post(url + "api.php?action=update-comanda", formData)
                     .then(function (response) {
@@ -452,6 +454,7 @@ var app = new Vue({
                             app.errorMessage = response.data.message;
                         } else {
                             app.successMessage = response.data.message;
+                            app.clickedComanda.id = response.data.id[0];
                             app.getComandasIdCarro();
                         }
                     });
@@ -472,17 +475,21 @@ var app = new Vue({
             },
 
             getimprimirOrcamentoRecibo: function () {
+                app.clickedComanda.id=371;
                 var formData = app.toFormData(app.clickedComanda);
-                axios.post(url + "relatorio/impressao.php?id=", formData)
+                axios.post(url + "relatorio/oracamento_recibo.php", formData)
                     .then(function (response) {
                         app.app.clickedComanda = {};
-                            alert(url + 'relatorio/impressao.php', '_blank');
-                            window.open(url + 'relatorio/impressao.php', '_blank');
+                            window.open(url + 'relatorio/oracamento_recibo.php', '_blank');
                     });
             },
 
             getImprimirRelatorioClean: function () {
                 window.open(url + 'relatorio/impressao_clean.php', '_blank');
+            },
+
+            getImprimirRelatorioManual: function () {
+                window.open(url + 'relatorio/oracamento_recibo_manual.php', '_blank');
             },
 
             selectComanda(comanda) {
