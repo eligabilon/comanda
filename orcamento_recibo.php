@@ -80,7 +80,7 @@
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
                 <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary"
-                        @click="updateItemComanda(); getItemComandasIdCarro();">Salvar
+                        @click="updateItemComanda(); getItemComandasIdCarro(); getTotalGeral();">Salvar
                 </button>
             </div>
         </div>

@@ -32,7 +32,7 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="index.php">
+			<a class="brand" href="dashboard.php">
 				OFICINA 4X4
 			</a>		
 			
@@ -40,7 +40,7 @@
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="index.php" class="">
+						<a href="dashboard.php" class="">
 							<i class="icon-chevron-left"></i>
 							Voltar para Home
 						</a>
@@ -70,12 +70,12 @@
 				<h2>Desculpe página não existe.</h2>
 				
 				<div class="error-details">
-					Página não encontrada, retornou erro, voltar para <a href="index.php">Home</a>.
+					Página não encontrada, retornou erro, voltar para <a href="dashboard.php">Home</a>.
 					
 				</div> <!-- /error-details -->
 				
 				<div class="error-actions">
-					<a href="index.php" class="btn btn-large btn-primary">
+					<a href="dashboard.php" class="btn btn-large btn-primary">
 						<i class="icon-chevron-left"></i>
 						&nbsp;
 						Voltar para Home

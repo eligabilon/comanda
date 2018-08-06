@@ -76,7 +76,6 @@ include("menu_header.php");
                                         <th> Cliente</th>
                                         <th> Cpf/Cnpj</th>
                                         <th> Tel/Cel</th>
-                                        <th> Orçamento/Recibo</th>
                                         <th> Data</th>
                                         <th> Placa do Carro</th>
                                         <th class="td-actions"></th>
@@ -88,7 +87,6 @@ include("menu_header.php");
                                         <td> {{cliente.nome}}</td>
                                         <td> {{cliente.cpf_cnpj}}</td>
                                         <td> {{cliente.tel}}/{{cliente.cel}}</td>
-                                        <td> {{cliente.id}}</td>
                                         <td> {{cliente.data}}</td>
                                         <td> {{cliente.placa}}</td>
                                         <td class="td-actions">

@@ -519,6 +519,20 @@ var app = new Vue({
                     });
             },
 
+            getTotalGeral: function () {
+                app.clickedItemComanda.id_comanda = app.clickedComanda.id;
+                var formData = app.toFormData(app.clickedItemComanda);
+                axios.post(url + "api.php?action=total-geral", formData)
+                    .then(function (response) {
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.totalGeral = response.data.totalGeral;
+                            app.clickedItemComanda.id = response.data.id[0];
+                        }
+                    });
+            },
+
             saveComandaItem: function () {
                 app.newItemComanda.id_comanda = app.clickedComanda.id;
                 var formData = app.toFormData(app.newItemComanda);
@@ -531,6 +545,7 @@ var app = new Vue({
                             app.successMessage = response.data.message;
                             app.clickedItemComanda.id = response.data.id[0];
                             app.getItemComandasIdCarro();
+                            app.getTotalGeral();
                         }
                     });
             },
@@ -545,6 +560,7 @@ var app = new Vue({
                         } else {
                             app.successMessage = response.data.message;
                             app.getItemComandasIdCarro();
+                            app.getTotalGeral();
                         }
                     });
             },
@@ -559,6 +575,7 @@ var app = new Vue({
                         } else {
                             app.successMessage = response.data.message;
                             app.getItemComandasIdCarro();
+                            app.getTotalGeral();
                         }
                     });
             },
