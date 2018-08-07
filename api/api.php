@@ -100,6 +100,14 @@ if ($action == 'read-carro-cliente') {
     $res['carros'] = $objs;
 }
 
+if ($action == 'read-usuario') {
+    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha FROM tab_user4x4 us ORDER BY us.id DESC limit 5 ");
+    while ($row = $result->fetch_assoc()) {
+        array_push($objs, $row);
+    }
+    $res['usuarios'] = $objs;
+}
+
 if ($action == 'query-cliente-carro') {
     $termo = $_POST['termo'];
 
@@ -187,6 +195,16 @@ if ($action == 'query-comanda-todos') {
         array_push($objs, $row);
     }
     $res['comandas'] = $objs;
+}
+
+if ($action == 'query-usuario') {
+    $termo = $_POST['termo'];
+
+    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha FROM tab_user4x4 us where us.id = '$termo' or us.nome like '%$termo%' or us.email like '%$termo%' ORDER BY us.id DESC limit 5 ");
+    while ($row = $result->fetch_assoc()) {
+        array_push($objs, $row);
+    }
+    $res['usuarios'] = $objs;
 }
 
 if ($action == 'validar-cpfcnpj') {
@@ -299,6 +317,27 @@ if ($action == 'create-endereco') {
     }
 }
 
+if ($action == 'create-usuario') {
+    $res['id'] = array();
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    if (!empty($email) && !empty($senha)) {
+
+        $senha = hash('sha256', $email . $senha);
+
+        $result = $conn->query("INSERT INTO tab_user4x4 (nome, email, senha, data_cadastro) VALUES ('$nome' , '$email', '$senha', NOW()) ");
+        array_push($objs, $conn->insert_id);
+        $res['id'] = $objs;
+        if (!$result) {
+            $res['error'] = true;
+            $res['message'] = "Falha ao inserir registro!";
+        } else {
+            $res['message'] = "Registro inserido com sucesso!";
+        }
+    }
+}
+
 if ($action == 'update-cliente') {
     $id = $_POST['id_cliente'];
     $nome = $_POST['nome'];
@@ -372,6 +411,26 @@ if ($action == 'update-comanda') {
     }
 }
 
+if ($action == 'update-usuario') {
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    $senha = hash('sha256', $email . $senha);
+
+    if (!empty($id)) {
+        $result = $conn->query("UPDATE `tab_user4x4` SET `nome` = '$nome', `senha` = '$senha' WHERE `id` = '$id' ");
+        $res['id'] = $id;
+        if ($result) {
+            $res['message'] = "Registro alterado com sucesso...";
+        } else {
+            $res['error'] = true;
+            $res['message'] = "Falha ao alterar registro!";
+        }
+    }
+}
+
 if ($action == 'update-comanda-item') {
     $id = $_POST['id'];
     $qtd = $_POST['qtd'];
@@ -431,6 +490,19 @@ if ($action == 'delete-carro') {
     $id = $_POST['id'];
     if (!empty($id)) {
         $result = $conn->query("DELETE FROM `tab_carro` WHERE `id` = '$id'");
+        if ($result) {
+            $res['message'] = "Registro foi deletado!";
+        } else {
+            $res['error'] = true;
+            $res['message'] = "Falha ao deletar registro!";
+        }
+    }
+}
+
+if ($action == 'delete-usuario') {
+    $id = $_POST['id'];
+    if (!empty($id)) {
+        $result = $conn->query("DELETE FROM `tab_user4x4` WHERE `id` = '$id'");
         if ($result) {
             $res['message'] = "Registro foi deletado!";
         } else {

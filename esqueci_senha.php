@@ -1,3 +1,67 @@
+<?php
+ob_start();
+session_start();
+
+include_once('api/conect.php');
+include_once('api/functions.php');
+
+if (isset($_POST['btnReset'])) {
+
+    $username = $_POST['email'];
+
+    $function = new functions;
+
+    $error = array();
+
+    $data = array();
+
+    if (empty($username)) {
+        $error['email'] = "<span class='label label-rose'>*Digite seu email.</span>";
+    } else {
+        $conexao = conexao::getInstance();
+        $sql_queryS = "SELECT senha, email FROM tab_user4x4 WHERE email = :usuarioL";
+        $stmtS = $conexao->prepare($sql_queryS);
+
+        if ($stmtS) {
+            $stmtS->bindValue(':usuarioL', $username);
+            $stmtS->execute();
+            $result = $stmtS->fetch(PDO::FETCH_OBJ);;
+            @$data['senha'] = $result->password;
+            @$data['email'] = $result->email;
+
+            $num = $stmtS->rowCount();
+        }
+
+        if ($num == 1) {
+            $email = $data['email'];
+            $string = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            $password = $function->get_random_string($string, 6);
+            $encrypt_password = hash('sha256', $username . $password);
+
+            $sql_query = "UPDATE tab_user4x4 SET senha = :passwordS WHERE email = :usuarioL";
+
+            $conexao = conexao::getInstance();
+            $stmt = $conexao->prepare($sql_query);
+
+            if ($stmt) {
+                $stmt->bindValue(':usuarioL', $username);
+                $stmt->bindValue(':passwordS', $encrypt_password);
+
+                $stmt->execute();
+                $reset_result = $stmt;
+            }
+            //echo "<h1>$password</h1>";
+            // send new password to user email
+            if ($reset_result) {
+                include("api/email-senha.php");
+            }
+        } else {
+            $error['reset_result'] = "<span class='label label-rose'>*Email não encontrado na base de dados.</span>";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +112,7 @@
 
     <div class="content clearfix">
 
-        <form action="#" method="post">
+        <form method="post">
 
             <h1>Esqueci a senha</h1>
 
@@ -57,8 +121,8 @@
 
                 <div class="field">
                     <label for="username">Email</label>
-                    <input type="text" id="username" name="username" value="" placeholder="Email do Usuário"
-                           class="login username-field"/>
+                    <input type="email" id="username" name="email" value="" placeholder="Email do Usuário"
+                           class="login username-field" required/>
                 </div> <!-- /field -->
 
             </div> <!-- /login-fields -->
@@ -68,7 +132,7 @@
                     <a href="index.php"><label class="choice" for="Field">Voltar</label></a>
 				</span>
 
-                <button class="button btn btn-success btn-large">Enviar Senha</button>
+                <button class="button btn btn-success btn-large" name="btnReset">Enviar Senha</button>
             </div> <!-- .actions -->
 
         </form>

@@ -43,6 +43,10 @@ var app = new Vue({
             itemComandas: [],
             newItemComanda: {id: "", qtd: "", descricao_servico: "", vlr_unt: "", vlr_total:"",id_comanda:""},
             clickedItemComanda: {},
+            usuarios: [],
+            newUsuario: {id: "", nome: "", email:"", senha:"", data: "", conf_senha:""},
+            clickedUsuario: {},
+
         },
 
         mounted: function () {
@@ -55,7 +59,7 @@ var app = new Vue({
             },
             isValidUpdate: function () {
                 return app.clickedCliente.nome != '' && app.clickedCliente.tel != '' && !this.errors.any();
-            }
+            },
         },
 
         methods: {
@@ -583,7 +587,97 @@ var app = new Vue({
             selectItemComanda(itemComanda) {
                 app.clickedItemComanda = itemComanda;
             },
+
+            //////////////////////////////USUARIO///////////////////////////////////////////////////////////////////////
+
+            getReadUsuarios: function () {
+                axios.get(url + "api.php?action=read-usuario")
+                    .then(function (response) {
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.usuarios = response.data.usuarios;
+                        }
+                    });
+            },
+
+            getBuscaIndexUsuario: function () {
+                var formData = app.toFormData(app.newUsuario);
+                axios.post(url + "api.php?action=query-usuario", formData)
+                    .then(function (response) {
+                        if (!response.data.error) {
+                            app.usuarios = response.data.usuarios;
+                        }
+                    });
+            },
+
+            saveUsuario: function () {
+                app.clickedUsuario = app.newUsuario;
+                var formData = app.toFormData(app.newUsuario);
+                axios.post(url + "api.php?action=create-usuario", formData)
+                    .then(function (response) {
+                        app.newUsuario = {id: "", nome: "", email:"", senha:"", data: ""};
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.clickedUsuario.id = response.data.id[0];
+                            app.getReadUsuarios();
+                        }
+                    });
+            },
+
+            updateUsuario: function () {
+                var formData = app.toFormData(app.clickedUsuario);
+                axios.post(url + "api.php?action=update-usuario", formData)
+                    .then(function (response) {
+                        app.clickedComanda = {};
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.clickedUsuario.id = response.data.id[0];
+                            app.getReadUsuarios();
+                        }
+                    });
+            },
+
+            deleteUsuario: function () {
+                var formData = app.toFormData(app.clickedUsuario);
+                axios.post(url + "api.php?action=delete-usuario", formData)
+                    .then(function (response) {
+                        app.clickedUsuario = {};
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.getReadUsuarios();
+                        }
+                    });
+            },
+
+            cancelarUsuario: function () {
+                app.newUsuario = "";
+                app.clickedUsuario = "";
+                clearMessage();
+            },
+
+            selectUsuario(usuario) {
+                app.newUsuario = usuario;
+                app.clickedUsuario = usuario;
+            },
+
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            validaConfSenha: function () {
+                if(app.newUsuario.senha != app.newUsuario.conf_senha){
+                    app.errorMessage = "Senhas não conferem.";
+                    return true;
+                } else {
+                    app.errorMessage ="";
+                    return false;
+                }
+            },
 
             numberToReal(numero) {
                 var numero = (numero == null ? numero = 0 : numero).toLocaleString('pt-br', {minimumFractionDigits: 2});
