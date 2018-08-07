@@ -47,7 +47,7 @@
     <?php
     include("menu_header.php");
     ?>
-    <div class="main" v-if="!varClienteFull">
+    <div class="main">
 
         <!-- MODAL DELETE COMANDA -->
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -156,8 +156,8 @@
 
                                                     <input type="button" id="botao" name="botao" @click="getReadUsuarios()" v-show="false">
 
-                                                    <button class="button btn btn-primary btn-large" @click="saveUsuario(); getReadUsuarios();" :disabled="!isValidSave">Criar</button>
-                                                    <button class="button btn btn-danger btn-large" @click="cancelarUsuario(); getReadUsuarios();">Cancelar</button>
+                                                    <button class="button btn btn-primary btn-mini" @click="saveUsuario(); getReadUsuarios();" :disabled="!isValidSave">Criar</button>
+                                                    <button class="button btn btn-danger btn-mini" @click="cancelarUsuario(); getReadUsuarios();">Cancelar</button>
 
                                                 </div> <!-- .actions -->
 

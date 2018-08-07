@@ -4,6 +4,15 @@
         <div class="container"><a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
                         class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a
                     class="brand" href="dashboard.php"><?= $SUB_TITLE ?></a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown"><a href="logout.php" class="dropdown-toggle" data-toggle="dropdown"><i
+                                    class="icon-eye-close"></i><b> Sair </b></a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
