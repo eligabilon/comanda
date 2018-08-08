@@ -8,13 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> 
 	    
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="../css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
 	
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="../css/font-awesome.css" rel="stylesheet">
 	    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 	    
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="../css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -32,7 +32,7 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="index.php">
+			<a class="brand" href="dashboard.php">
 				OFICINA 4X4
 			</a>		
 			
@@ -40,7 +40,7 @@
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="index.php" class="">
+						<a href="dashboard.php" class="">
 							<i class="icon-chevron-left"></i>
 							Voltar para Home
 						</a>
@@ -70,12 +70,12 @@
 				<h2>Desculpe página não existe.</h2>
 				
 				<div class="error-details">
-					Página não encontrada, retornou erro, voltar para <a href="index.php">Home</a>.
+					Página não encontrada, retornou erro, voltar para <a href="dashboard.php">Home</a>.
 					
 				</div> <!-- /error-details -->
 				
 				<div class="error-actions">
-					<a href="index.php" class="btn btn-large btn-primary">
+					<a href="dashboard.php" class="btn btn-large btn-primary">
 						<i class="icon-chevron-left"></i>
 						&nbsp;
 						Voltar para Home
@@ -94,8 +94,8 @@
 </div> <!-- /container -->
 
 
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="../js/jquery-1.7.2.min.js"></script>
+<script src="../js/bootstrap.js"></script>
 
 </body>
 

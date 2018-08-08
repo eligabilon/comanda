@@ -1,4 +1,4 @@
-<?php //include('sessao.php');?>
+<?php include('sessao.php');?>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container"><a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
@@ -7,7 +7,7 @@
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
-                    <li class="dropdown"><a href="logout.php" class="dropdown-toggle" data-toggle="dropdown"><i
+                    <li class="dropdown"><a href="logout.php" class="dropdown-toggle"><i
                                     class="icon-eye-close"></i><b> Sair </b></a>
                     </li>
                 </ul>

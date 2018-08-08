@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -22,18 +22,18 @@
     <![endif]-->
 
     <!--AXIOS-->
-    <script type="text/javascript" src="libs/axios.min.js"></script>
+    <script type="text/javascript" src="../libs/axios.min.js"></script>
 
     <!--VALIDATE-->
-    <script src="libs/vee-validate.min.js"></script>
+    <script src="../libs/vee-validate.min.js"></script>
     <script type="text/javascript"
-            src="libs/pt_BR.js"></script>
+            src="../libs/pt_BR.js"></script>
 
     <!--MASK-->
-    <script src="libs/v-mask.min.js"></script>
+    <script src="../libs/v-mask.min.js"></script>
 
     <script>
-        window.setTimeout(function(){
+        window.setTimeout(function () {
             document.getElementById("botao").click();
         }, 1000);
     </script>
@@ -59,7 +59,8 @@
             <div class="modal-body">
                 <div class="control-group">
                     <div class="controls">
-                        <span><h3>Deseja realmente <b>deletar</b> o usuário <font color="red">{{clickedUsuario.nome}}</font></font>?</h3></span>
+                        <span><h3>Deseja realmente <b>deletar</b> o usuário <font
+                                        color="red">{{clickedUsuario.nome}}</font></font>?</h3></span>
                     </div> <!-- /controls -->
                 </div>
             </div>
@@ -115,7 +116,7 @@
                                                         <input type="text" id="firstname" name="Nome"
                                                                v-model="newUsuario.nome"
                                                                v-validate="'required|alpha_spaces|min:3'"
-                                                               placeholder="Nome" class="login" />
+                                                               placeholder="Nome" class="login"/>
                                                         <span v-show="errors.has('Nome')"
                                                               class="alert alert-error">{{ errors.first('Nome') }}</span>
                                                     </div> <!-- /field -->
@@ -125,6 +126,7 @@
                                                         <input type="email" id="email" name="Email"
                                                                v-model="newUsuario.email"
                                                                v-validate="'required|email'"
+                                                               :disabled="clickedUsuario.id != null"
                                                                placeholder="Email" class="login"/>
                                                         <span v-show="errors.has('Email')"
                                                               class="alert alert-error">{{ errors.first('Email') }}</span>
@@ -142,7 +144,8 @@
 
                                                     <div class="field">
                                                         <label for="confirm_password">*Confirmação de Senha:</label>
-                                                        <input type="password" id="confirm_password" name="Confirmação Senha"
+                                                        <input type="password" id="confirm_password"
+                                                               name="Confirmação Senha"
                                                                v-model="newUsuario.conf_senha"
                                                                v-validate="'required|min:3'"
                                                                v-on:change="validaConfSenha()"
@@ -150,14 +153,36 @@
                                                         <span v-show="errors.has('Confirmação Senha')"
                                                               class="alert alert-error">{{ errors.first('Confirmação Senha') }}</span>
                                                     </div> <!-- /field -->
-                                                </div> <!-- /login-fields -->
-                                                    <br>
+                                                </div>
+                                                <div class="controls">
+                                                    <label for="confirm_password">*Situação:</label>
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="situacao"
+                                                               value="ATIVO" :checked="true"
+                                                               v-model="newUsuario.situacao"> Ativo
+                                                    </label>
+
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="situacao"
+                                                               value="INATIVO"
+                                                               v-model="newUsuario.situacao"> Inativo
+                                                    </label>
+                                                </div>
+                                                <br>
                                                 <div class="login-actions">
 
-                                                    <input type="button" id="botao" name="botao" @click="getReadUsuarios()" v-show="false">
+                                                    <input type="button" id="botao" name="botao"
+                                                           @click="getReadUsuarios()" v-show="false">
 
-                                                    <button class="button btn btn-primary btn-mini" @click="saveUsuario(); getReadUsuarios();" :disabled="!isValidSave">Criar</button>
-                                                    <button class="button btn btn-danger btn-mini" @click="cancelarUsuario(); getReadUsuarios();">Cancelar</button>
+                                                    <button class="button btn btn-primary btn-mini"
+                                                            @click="saveUsuario(); getReadUsuarios();"
+                                                            :disabled="!isValidSave"><i
+                                                                class="btn-icon-only icon-save"> Salvar </i>
+                                                    </button>
+
+                                                    <button class="button btn btn-danger btn-mini"
+                                                            @click="cancelarUsuario(); getReadUsuarios();">Cancelar
+                                                    </button>
 
                                                 </div> <!-- .actions -->
 
@@ -175,9 +200,12 @@
                                                     <label class="control-label" for="termo">Pesquisar </label> &nbsp;
                                                     <input type="text" class="span8" id="termo" name="termo"
                                                            placeholder="Buscar por Nome, Email, Código"
-                                                           maxlength="100" v-model="newComanda.termo" @keydown.enter.stop.prevent="getBuscaIndexUsuario()">
-                                                    <a href="javascript:;" class="btn btn-small btn-info" title="Buscar">
-                                                        <i class="btn-icon-only icon-search" @click="getBuscaIndexUsuario(newUsuario.termo)"> </i></a>
+                                                           maxlength="100" v-model="newComanda.termo"
+                                                           @keydown.enter.stop.prevent="getBuscaIndexUsuario()">
+                                                    <a href="javascript:;" class="btn btn-small btn-info"
+                                                       title="Buscar">
+                                                        <i class="btn-icon-only icon-search"
+                                                           @click="getBuscaIndexUsuario(newUsuario.termo)"> </i></a>
                                                 </div>
 
                                                 <fieldset>
@@ -189,6 +217,7 @@
                                                                 <th> Nome</th>
                                                                 <th> Email</th>
                                                                 <th> Data Cadastro</th>
+                                                                <th> Situação</th>
                                                                 <th class="td-actions"></th>
                                                             </tr>
                                                             </thead>
@@ -198,6 +227,7 @@
                                                                 <td> {{user.nome}}</td>
                                                                 <td> {{user.email}}</td>
                                                                 <td><b> {{user.data}}</b></td>
+                                                                <td><b> {{user.situacao}}</b></td>
                                                                 <td class="td-actions">
                                                                     <a href="javascript:;"
                                                                        class="btn btn-small btn-success"
@@ -208,6 +238,7 @@
 
                                                                     <a href="#myModal" role="button"
                                                                        data-toggle="modal"
+                                                                       v-if="user.email != '4x4monobloco@gmail.com'"
                                                                        class="btn btn-danger btn-small"
                                                                        @click="selectUsuario(user);"><i
                                                                                 class="btn-icon-only icon-remove"
@@ -234,13 +265,13 @@
 
 <?php include("rodape.php"); ?>
 
-<script type="text/javascript" src="libs/vue.js"></script>
-<script src="app/config.js"></script>
-<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="../libs/vue.js"></script>
+<script src="../app/config.js"></script>
+<script type="text/javascript" src="../app/app.js"></script>
 
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/base.js"></script>
+<script src="../js/jquery-1.7.2.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/base.js"></script>
 
 </body>
 </html>

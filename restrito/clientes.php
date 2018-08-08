@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -22,24 +22,24 @@
     <![endif]-->
 
     <!--AXIOS-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+    <script type="text/javascript" src="../libs/axios.min.js"></script>
 
     <!--VALIDATE-->
-    <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.0.9/dist/vee-validate.min.js"></script>
+    <script src="../libs/vee-validate.min.js"></script>
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.9/locale/pt_BR.js"></script>
+            src="../libs/pt_BR.js"></script>
 
     <!--MASK-->
-    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script src="../libs/v-mask.min.js"></script>
 </head>
 
 <body>
 
-<?php
-include("menu_header.php");
-?>
 
 <div id="root">
+    <?php
+    include("menu_header.php");
+    ?>
     <div class="main" v-if="!varClienteFull">
         <div class="main-inner">
             <div class="container">
@@ -178,13 +178,13 @@ include("menu_header.php");
 
 <?php include("rodape.php"); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
-<script src="app/config.js"></script>
-<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="../libs/vue.js"></script>
+<script src="../app/config.js"></script>
+<script type="text/javascript" src="../app/app.js"></script>
 
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/base.js"></script>
+<script src="../js/jquery-1.7.2.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/base.js"></script>
 
 </body>
 </html>

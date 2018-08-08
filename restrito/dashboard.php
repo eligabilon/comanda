@@ -6,39 +6,63 @@
     <title><?= $TITLE ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/pages/dashboard.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/pages/dashboard.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!--AXIOS-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+    <script type="text/javascript" src="../libs/axios.min.js"></script>
 
     <!--VALIDATE-->
-    <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.0.9/dist/vee-validate.min.js"></script>
+    <script src="../libs/vee-validate.min.js"></script>
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.9/locale/pt_BR.js"></script>
+            src="../libs/pt_BR.js"></script>
 
     <!--MASK-->
-    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script src="../libs/v-mask.min.js"></script>
 
 </head>
 <body>
 
-<?php
-include("menu_header.php");
-?>
 
 <div id="root">
+    <?php
+        include("menu_header.php");
+    ?>
 
     <div class="main" v-if="!varClienteFull">
+
+        <!-- MODAL DELETE COMANDA -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Deletar Comanda ABERTA</h3>
+            </div>
+            <div class="modal-body">
+                <div class="control-group">
+                    <div class="controls">
+                        <span><h3>Deseja <b>deletar</b> o <font color="red">{{clickedComanda.tipo}}</font> de <font color="red">Nº {{clickedComanda.id}}</font>?</h3></span>
+                    </div> <!-- /controls -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary"
+                        @click="deleteComanda(comanda); comandaItem=true; getReadComandas();">Sim
+                </button>
+            </div>
+        </div>
+        <!-- FIM MODAL DELETE COMANDA -->
+
         <div class="main-inner">
             <div class="container">
                 <div class="row">
@@ -53,18 +77,24 @@ include("menu_header.php");
                                     <div class="widget-content">
                                         <div id="big_stats" class="cf">
                                             <div class="stat" title="Clientes Cadastrados"><i class="icon-group"></i>
+                                                Clientes<br>
                                                 <span
                                                         class="value">{{countsCi}}</span>
                                             </div>
 
                                             <div class="stat" title="Carros Cadastrados"><i class="icon-truck"></i>
+                                                Carros<br>
                                                 <span
                                                         class="value">{{countsCa}}</span></div>
 
-                                            <div class="stat" title="ORÇAMENTOS"><i class="icon-file"></i> <span
+                                            <div class="stat" title="ORÇAMENTOS"><i class="icon-file"></i>
+                                                Orçamentos<br>
+                                                <span
                                                         class="value">{{countsOr}}</span></div>
 
-                                            <div class="stat" title="RECIBOS"><i class="icon-barcode"></i> <span
+                                            <div class="stat" title="RECIBOS"><i class="icon-barcode"></i>
+                                                Recibos<br>
+                                                <span
                                                         class="value">{{countsRe}}</span>
                                             </div>
                                         </div>
@@ -77,7 +107,7 @@ include("menu_header.php");
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-header"><i class="icon-bookmark"></i>
-                                <h3>Atalhos</h3>
+                                <h3>Todos as Relações</h3>
                             </div>
                             <!-- /widget-header -->
                             <div class="widget-content">
@@ -85,17 +115,17 @@ include("menu_header.php");
 
                                     <a href="clientes_all.php" class="shortcut"><i
                                                 class="shortcut-icon icon-user"></i>
-                                        <span class="shortcut-label">Todos os Clientes</span> </a>
+                                        <span class="shortcut-label">Clientes</span> </a>
 
                                     <a href="carros_all.php" class="shortcut"><i
                                                 class="shortcut-icon icon-truck"
                                                 @click="telaCarro=true; execut();"></i>
-                                        <span class="shortcut-label">Todos os Carros</span> </a>
+                                        <span class="shortcut-label">Carros</span> </a>
 
                                     <a href="javascript:;" class="shortcut"
                                        @click="comandaItem=true; getReadComandas()">
                                         <i class="shortcut-icon icon-file"></i>
-                                        <span class="shortcut-label">Orçamento/Recibo</span> </a>
+                                        <span class="shortcut-label">Orçamentos/Recibos</span> </a>
 
                                 </div>
                             </div>
@@ -158,7 +188,6 @@ include("menu_header.php");
                                                                 <th> Descrição do Serviço</th>
                                                                 <th> Placa</th>
                                                                 <th> Data</th>
-                                                                <th> Vlr. Unitário</th>
                                                                 <th> Obs</th>
                                                                 <th> Tipo</th>
                                                                 <th> Situação</th>
@@ -172,7 +201,6 @@ include("menu_header.php");
                                                                 <td> {{comanda.descricao_servico}}</td>
                                                                 <td> {{comanda.placa}}</td>
                                                                 <td><b> {{comanda.data}}</b></td>
-                                                                <td>R$ {{comanda.vlr_unt}}</td>
                                                                 <td> {{comanda.obs}}</td>
                                                                 <td> {{comanda.tipo}}</td>
                                                                 <td> {{comanda.situacao}}</td>
@@ -180,8 +208,19 @@ include("menu_header.php");
                                                                     <a href="javascript:;"
                                                                        class="btn btn-small btn-success"
                                                                        title="Editar Item"
-                                                                       @click="selectComanda(comanda);editarComanda=true; "><i
-                                                                                class="btn-icon-only icon-pencil"> </i></a>
+                                                                       @click="selectComanda(comanda); editarComanda=true; getBuscaClientCarro(); getItemComandasIdCarro(); getTotalGeral();">
+                                                                        <i class="btn-icon-only icon-pencil" v-if="(comanda.situacao!='FECHADA')"> </i>
+                                                                        <i class="btn-icon-only icon-search" v-else> </i>
+                                                                    </a>
+
+
+                                                                    <a href="#myModal" role="button"
+                                                                       data-toggle="modal"
+                                                                       v-if="(comanda.situacao!='FECHADA')"
+                                                                       class="btn btn-danger btn-small"
+                                                                       @click="selectComanda(comanda);"><i
+                                                                                class="btn-icon-only icon-remove"
+                                                                                title="Excluir Item"> </i></a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -224,7 +263,6 @@ include("menu_header.php");
                                         <th> Cliente</th>
                                         <th> Cpf/Cnpj</th>
                                         <th> Tel/Cel</th>
-                                        <th> Orçamento/Recibo</th>
                                         <th> Data</th>
                                         <th> Placa do Carro</th>
                                         <th class="td-actions"></th>
@@ -235,8 +273,7 @@ include("menu_header.php");
                                         <td> {{cliente.id_cliente}}</td>
                                         <td> {{cliente.nome}}</td>
                                         <td> {{cliente.cpf_cnpj}}</td>
-                                        <td> {{cliente.tel}}/{{cliente.cel}}</td>
-                                        <td> {{cliente.id}}</td>
+                                        <td> {{cliente.tel}} / {{cliente.cel}}</td>
                                         <td> {{cliente.data}}</td>
                                         <td> {{cliente.placa}}</td>
                                         <td class="td-actions">
@@ -255,7 +292,7 @@ include("menu_header.php");
                 </div>
             </div>
         </div>
-        <?php @include("teste.php") ?>
+        <?php @include("comanda.php") ?>
     </div>
 
     <?php @include("clientes_alter_full.php") ?>
@@ -264,14 +301,14 @@ include("menu_header.php");
 
 <?php include("rodape.php"); ?>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
-<script src="app/config.js"></script>
-<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="../libs/vue.js"></script>
+<script src="../app/config.js"></script>
+<script type="text/javascript" src="../app/app.js"></script>
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/excanvas.min.js"></script>
+<script src="../js/jquery-1.7.2.min.js"></script>
+<script src="../js/excanvas.min.js"></script>
 <script src="js/chart.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.js"></script>
+<script src="../js/bootstrap.js"></script>
 
 </body>
 </html>

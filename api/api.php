@@ -2,6 +2,7 @@
 
 include('conect.php');
 include('class/class-valida-cpf-cnpj.php');
+include('../restrito/sessao.php');
 
 $res = array('error' => false);
 $action = 'read';
@@ -101,7 +102,7 @@ if ($action == 'read-carro-cliente') {
 }
 
 if ($action == 'read-usuario') {
-    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha FROM tab_user4x4 us ORDER BY us.id DESC limit 5 ");
+    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha, us.situacao FROM tab_user4x4 us WHERE us.nivel = 'USER' ORDER BY us.id DESC limit 5 ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -319,14 +320,25 @@ if ($action == 'create-endereco') {
 
 if ($action == 'create-usuario') {
     $res['id'] = array();
+    $id = $_POST['id'];
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    if (!empty($email) && !empty($senha)) {
+    $situacao = $_POST['situacao'];
 
-        $senha = hash('sha256', $email . $senha);
+    $senha = hash('sha256', $email . $senha);
 
-        $result = $conn->query("INSERT INTO tab_user4x4 (nome, email, senha, data_cadastro) VALUES ('$nome' , '$email', '$senha', NOW()) ");
+    if (!empty($id)) {
+        $result = $conn->query("UPDATE `tab_user4x4` SET `nome` = '$nome', `senha` = '$senha' WHERE `id` = '$id' ");
+        $res['id'] = $id;
+        if ($result) {
+            $res['message'] = "Registro alterado com sucesso...";
+        } else {
+            $res['error'] = true;
+            $res['message'] = "Falha ao alterar registro!";
+        }
+    } else if (!empty($email) && !empty($senha)) {
+        $result = $conn->query("INSERT INTO tab_user4x4 (nome, email, senha, data_cadastro, situacao, nivel) VALUES ('$nome' , '$email', '$senha', NOW(), '$situacao', 'USER') ");
         array_push($objs, $conn->insert_id);
         $res['id'] = $objs;
         if (!$result) {

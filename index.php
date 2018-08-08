@@ -47,7 +47,7 @@ if (isset($_POST['btnLogin'])) {
                 $_SESSION['email'] = $cliente->email;
                 $_SESSION['nome'] = $cliente->nome;
                 $_SESSION['timeout'] = $currentTime + $expired;
-                header("location: dashboard.php");
+                header("location: restrito/dashboard.php");
             } else {
                 $error['failed'] = "<span class='label label-rose'>Email ou senha inválidos!</span>";
             }
