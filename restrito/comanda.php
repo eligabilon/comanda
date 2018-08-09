@@ -267,7 +267,7 @@
                                                         <i class="btn-icon-only icon-print"
                                                            @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo();"
                                                            title="Imprimir Orçamento/Recibo"> Imprimir </i>
-                                                    </a>
+                                                    </a> Ao Imprimir a Comanda será fechada.
                                                 </div> <!-- /form-actions -->
                                             </div>
                                         </fieldset>

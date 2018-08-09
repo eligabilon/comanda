@@ -190,6 +190,7 @@
                                                                 <th> Data</th>
                                                                 <th> Obs</th>
                                                                 <th> Tipo</th>
+                                                                <th> Total R$</th>
                                                                 <th> Situação</th>
                                                                 <th class="td-actions"></th>
                                                             </tr>
@@ -203,6 +204,7 @@
                                                                 <td><b> {{comanda.data}}</b></td>
                                                                 <td> {{comanda.obs}}</td>
                                                                 <td> {{comanda.tipo}}</td>
+                                                                <td> R$ {{numberToReal(comanda.total_geral)}}</td>
                                                                 <td> {{comanda.situacao}}</td>
                                                                 <td class="td-actions">
                                                                     <a href="javascript:;"
@@ -212,7 +214,6 @@
                                                                         <i class="btn-icon-only icon-pencil" v-if="(comanda.situacao!='FECHADA')"> </i>
                                                                         <i class="btn-icon-only icon-search" v-else> </i>
                                                                     </a>
-
 
                                                                     <a href="#myModal" role="button"
                                                                        data-toggle="modal"
