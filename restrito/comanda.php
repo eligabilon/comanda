@@ -104,6 +104,13 @@
                                                 <div id="confirma" v-for="cliente in clientes" v-if="newCliente.termo!=null">
 
                                                     <div class="control-group">
+                                                        <label class="control-label">Nº Comanda:</label>
+                                                        <div class="controls">
+                                                            <label class="control-label"><b><font color="blue">{{clickedComanda.id}}</font></b></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="control-group">
                                                         <label class="control-label">Situação da Comanda</label>
                                                         <div class="controls">
                                                             <input type="input" class="span2 disabled"
@@ -161,7 +168,7 @@
                                                             <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id != null"
                                                                title="Alterar Comanda"
                                                                :disabled="situacaoComanda=='FECHADA'"
-                                                               @click.prevent="updateComanda(); comandaItem=true; selectComanda(clickedComanda);"><i
+                                                               @click.prevent="updateComanda(); comandaItem=true; selectComanda(clickedComanda); getBuscaClientCarro(); getItemComandasIdCarro(); getTotalGeral();"><i
                                                                     class="btn-icon-only icon-save"> </i></a>
                                                         </div>
                                                     </div>
