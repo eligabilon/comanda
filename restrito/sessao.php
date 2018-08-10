@@ -6,7 +6,7 @@ $expired = 3600;
 
 if ($currentTime > $_SESSION['timeout']) {
     session_destroy();
-    header("location:index.php");
+    header("location:../index.php");
 }
 
 unset($_SESSION['timeout']);

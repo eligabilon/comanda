@@ -3,10 +3,10 @@ include('mpdf60/mpdf.php');
 include('../conect.php');
 
 $id = $_POST['id'];
-$id=85;
+$id=98;
 if (!empty($id)) {
     $objs = array();
-    $result = $conn->query("SELECT tc.id AS id_comanda, tc.tipo, tc.obs, DATE_FORMAT(tc.data, '%d/%m/%Y') AS data, tc.situacao, tc.id_carro, ic.id AS id_item_comanda, ic.qtd, ic.descricao_servico, ic.vlr_unt, (ic.qtd*ic.vlr_unt) AS vlr_total, cl.id AS id_cliente, cl.nome, cl.cpf_cnpj, cl.insc_estadual, cl.cel, cl.tel, cl.email FROM tab_comanda tc JOIN tab_itens_comanda ic ON ic.id_comanda = tc.id JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente WHERE ic.id_comanda = '$id' ");
+    $result = $conn->query("SELECT tc.id AS id_comanda, tc.tipo, tc.obs, DATE_FORMAT(tc.data, '%d/%m/%Y') AS data, tc.situacao, tc.id_carro, cl.id AS id_cliente, cl.nome, cl.cpf_cnpj, cl.insc_estadual, cl.cel, cl.tel, cl.email FROM tab_comanda tc JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente WHERE tc.id = '$id' ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }
@@ -18,6 +18,20 @@ if (!empty($id)) {
         array_push($objs2, $row2);
     }
     $total_geral['total_geral'] = $objs2;
+
+    $objs3 = array();
+    $result = $conn->query("SELECT ca.marca, ca.placa, ca.modelo, ca.obs FROM tab_comanda tc JOIN tab_carro ca on tc.id_carro = ca.id WHERE tc.id = '$id' ");
+    while ($row = $result->fetch_assoc()) {
+        array_push($objs3, $row);
+    }
+    $res['carros'] = $objs3;
+
+    $objs4 = array();
+    $result = $conn->query("SELECT en.cep, en.rua, en.numero, en.bairro, en.cidade, en.estado, en.tipo_endereco FROM tab_comanda tc JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente JOIN tab_endereco en on en.id_cliente = cl.id WHERE tc.id = '$id' ");
+    while ($row = $result->fetch_assoc()) {
+        array_push($objs4, $row);
+    }
+    $res['enderecos'] = $objs4;
 }
 ?>
 <!DOCTYPE html>
@@ -46,7 +60,7 @@ if (!empty($id)) {
     <table border='0' width='100%'>
         <tbody>
         <tr>
-            <td style="text-align:left;"><input type='radio' checked='true'><b>  <?php echo $tipo; ?>  </b></td>
+            <td style="text-align:left;"><input type='radio' checked='true'><b>  <?php echo $res['dados'][0]['tipo']; ?>  </b></td>
             <td style=\"text-align:right;\"></td>
             <td></td>
             <td></td>
@@ -56,45 +70,45 @@ if (!empty($id)) {
                 Grande <?php echo strftime('%d de %B de %Y', strtotime('today')); ?> </td>
         </tr>
         <tr>
-            <td colspan='4' style="text-align:left;">Nome: <?php echo $nome; ?> </td>
+            <td colspan='4' style="text-align:left;">Nome: <b><?php echo $res['dados'][0]['nome']; ?></b> </td>
             <td></td>
-            <td colspan='4' style="text-align:left;">Endereço: <?php echo $rua; ?> </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan='4' style="text-align:left;">Fone: <?php echo $telefone; ?> </td>
-            <td></td>
-            <td colspan='6' style="text-align:left;">Bairro:<?php echo $bairro; ?> </td>
+            <td colspan='4' style="text-align:left;">Endereço: <b><?php echo $res['enderecos'][0]['rua']; ?></b> </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td colspan='4' style="text-align:left;">Cidade: <?php echo $cidade; ?> </td>
+            <td colspan='4' style="text-align:left;">Fone: <b><?php echo $res['dados'][0]['tel'] ." / ". $res['dados'][0]['cel']; ?></b> </td>
             <td></td>
-            <td colspan='6' style="text-align:left;">Estado: <?php echo $estado; ?> </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan='4' style="text-align:left;">CNPJ/CPF: <?php echo $cpf_cpnj; ?> </td>
-            <td></td>
-            <td colspan='6' style="text-align:left;">Insc. Est.: <?php echo $insc_estadual; ?> </td>
+            <td colspan='6' style="text-align:left;">Bairro: <b><?php echo $res['enderecos'][0]['bairro']; ?></b> </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td colspan='4' style="text-align:left;">Marca: <?php echo $marca; ?> </td>
+            <td colspan='4' style="text-align:left;">Cidade: <b><?php echo $res['enderecos'][0]['cidade']; ?></b> </td>
             <td></td>
-            <td colspan='6' style="text-align:left;">Placa: <?php echo $placa; ?> </td>
+            <td colspan='6' style="text-align:left;">Estado: <b><?php echo $res['enderecos'][0]['estado']; ?></b> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan='4' style="text-align:left;">CNPJ/CPF: <b><?php echo $res['dados'][0]['cpf_cnpj']; ?></b> </td>
+            <td></td>
+            <td colspan='6' style="text-align:left;">Insc. Est.: <b><?php echo $res['dados'][0]['insc_estadual']; ?></b> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan='4' style="text-align:left;">Marca: <b><?php echo $res['carros'][0]['marca']; ?></b> </td>
+            <td></td>
+            <td colspan='6' style="text-align:left;">Placa: <b><?php echo $res['carros'][0]['placa']; ?></b> </td>
             <td></td>
             <td></td>
             <td></td>
@@ -213,13 +227,13 @@ if (!empty($id)) {
     </table>
 </div>
 
-<?php if($obs != null){ ?>
+<?php if($res['carros'][0]['obs'] != null){ ?>
     <div class='obs'>
         <table border='0' width='100%'>
             <tbody>
             <tr>
                 <td style="text-align:left;"><b>Obs:</b></td>
-                <td style="text-align:left;"> <?php echo $obs; ?> </td>
+                <td style="text-align:left;"> <?php echo $res['carros'][0]['obs']; ?> </td>
             </tr>
             </tbody>
         </table>
@@ -239,7 +253,7 @@ if (!empty($id)) {
                 <table width='100%' height='60%' border='1'>
                     <tr>
                         <td height='25px' style="text-align:right; vertical-align: bottom; font-size:26px
-                        "><b> R$ <?php print($total_geral["total_geral"]) ?>  </b></td>
+                        "><b> R$ <?php print($total_geral['total_geral'][0]['total_geral']) ?>  </b></td>
                     </tr>
                 </table>
             </td>
