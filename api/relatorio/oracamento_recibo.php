@@ -32,6 +32,13 @@ if (!empty($id)) {
         array_push($objs4, $row);
     }
     $res['enderecos'] = $objs4;
+
+    $conexao = conexao::getInstance();
+    $result = "SELECT ic.id, ic.qtd, ic.descricao_servico, ic.vlr_unt, (ic.qtd*ic.vlr_unt) as vlr_total, ic.id_comanda FROM tab_itens_comanda ic where ic.id_comanda = :id ";
+    $stm = $conexao->prepare($result);
+    $stm->bindValue(':id', $id);
+    $stm->execute();
+    $itemComandas = $stm->fetchAll(PDO::FETCH_OBJ);
 }
 ?>
 <!DOCTYPE html>
@@ -66,8 +73,18 @@ if (!empty($id)) {
             <td></td>
             <td></td>
             <td></td>
-            <td colspan='6' style="text-align:right;">Campo
-                Grande <?php echo strftime('%d de %B de %Y', strtotime('today')); ?> </td>
+            <td colspan='6' style="text-align:right;">Data de geração:
+                <b><?php echo $res['dados'][0]['data']; ?></b> </td>
+        </tr>
+        <tr height='20px'>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td colspan='4' style="text-align:left;">Nome: <b><?php echo $res['dados'][0]['nome']; ?></b> </td>
@@ -133,36 +150,14 @@ if (!empty($id)) {
         </tr>
         </tfoot>
         <tbody>
+        <?php foreach ($itemComandas as $item): ?>
         <tr>
-            <td height='20px'> <?php echo $qtd; ?> </td>
-            <td height='20px'> <?php echo $descricao; ?> </td>
-            <td height='20px'> <?php echo $vlr_unitario; ?> </td>
-            <td height='20px'> <?php echo $vlr_total; ?> </td>
+            <td height='20px' style="vertical-align: bottom; font-size:16px"> <?php echo $item->qtd; ?> </td>
+            <td height='20px' style="vertical-align: bottom; font-size:16px"> <?php echo $item->descricao_servico; ?> </td>
+            <td height='20px' style="vertical-align: bottom; font-size:16px"> <?php echo 'R$ '. formataReal($item->vlr_unt); ?> </td>
+            <td height='20px' style="vertical-align: bottom; font-size:16px"> <?php echo 'R$ '. formataReal($item->vlr_total); ?> </td>
         </tr>
-        <tr>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-        </tr>
-        <tr>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-        </tr>
-        <tr>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-        </tr>
-        <tr>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-            <td height='20px'></td>
-        </tr>
+        <?php endforeach; ?>
         <tr>
             <td height='20px'></td>
             <td height='20px'></td>
@@ -232,7 +227,7 @@ if (!empty($id)) {
         <table border='0' width='100%'>
             <tbody>
             <tr>
-                <td style="text-align:left;"><b>Obs:</b></td>
+                <td width="10px" style="text-align:left;"><b>Obs:</b></td>
                 <td style="text-align:left;"> <?php echo $res['carros'][0]['obs']; ?> </td>
             </tr>
             </tbody>
@@ -253,7 +248,7 @@ if (!empty($id)) {
                 <table width='100%' height='60%' border='1'>
                     <tr>
                         <td height='25px' style="text-align:right; vertical-align: bottom; font-size:26px
-                        "><b> R$ <?php print($total_geral['total_geral'][0]['total_geral']) ?>  </b></td>
+                        "><b> R$ <?php print(formataReal($total_geral['total_geral'][0]['total_geral'])) ?>  </b></td>
                     </tr>
                 </table>
             </td>
@@ -279,3 +274,9 @@ if (!empty($id)) {
 </div>
 </body>
 </html>
+
+<?php
+function formataReal($vlr){
+    return number_format($vlr, 2, ',', '.');
+}
+?>
