@@ -168,7 +168,7 @@
                                                             <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id != null"
                                                                title="Alterar Comanda"
                                                                :disabled="situacaoComanda=='FECHADA'"
-                                                               @click.prevent="updateComanda(); comandaItem=true; selectComanda(clickedComanda); getBuscaClientCarro(); getItemComandasIdCarro(); getTotalGeral();"><i
+                                                               @click.prevent="updateComanda(); comandaItem=true; getBuscaClientCarro(); getItemComandasIdCarro(); getTotalGeral(); selectComanda(clickedComanda);"><i
                                                                     class="btn-icon-only icon-save"> </i></a>
                                                         </div>
                                                     </div>

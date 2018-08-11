@@ -229,6 +229,10 @@ if (!empty($id)) {
                 <td width="10px" style="text-align:left;"><b>Obs:</b></td>
                 <td style="text-align:left;"> <?php echo $res['carros'][0]['obs']; ?> </td>
             </tr>
+            <tr>
+                <td width="0px" style="text-align:left;"></td>
+                <td style="text-align:left;" width="100%"> <?php echo $res['dados'][0]['obs']; ?> </td>
+            </tr>
             </tbody>
         </table>
     </div>

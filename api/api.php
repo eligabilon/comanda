@@ -201,7 +201,7 @@ if ($action == 'query-comanda-todos') {
 if ($action == 'query-usuario') {
     $termo = $_POST['termo'];
 
-    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha FROM tab_user4x4 us where us.id = '$termo' or us.nome like '%$termo%' or us.email like '%$termo%' ORDER BY us.id DESC limit 5 ");
+    $result = $conn->query("SELECT DISTINCT us.id, us.nome, DATE_FORMAT(us.data_cadastro,'%d/%m/%Y') as data, us.email, us.senha, us.situacao FROM tab_user4x4 us where us.id = '$termo' or us.nome like '%$termo%' or us.email like '%$termo%' ORDER BY us.id DESC limit 5 ");
     while ($row = $result->fetch_assoc()) {
         array_push($objs, $row);
     }

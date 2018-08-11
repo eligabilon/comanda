@@ -200,7 +200,7 @@
                                                     <label class="control-label" for="termo">Pesquisar </label> &nbsp;
                                                     <input type="text" class="span8" id="termo" name="termo"
                                                            placeholder="Buscar por Nome, Email, Código"
-                                                           maxlength="100" v-model="newComanda.termo"
+                                                           maxlength="100" v-model="newUsuario.termo"
                                                            @keydown.enter.stop.prevent="getBuscaIndexUsuario()">
                                                     <a href="javascript:;" class="btn btn-small btn-info"
                                                        title="Buscar">

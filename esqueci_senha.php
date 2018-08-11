@@ -7,13 +7,17 @@ include_once('api/functions.php');
 
 if (isset($_POST['btnReset'])) {
 
-    $username = $_POST['email'];
+    @$username = $_POST['email'];
+    @$senha = $_POST['senha'];
+    @$conf_senha = $_POST['conf_senha'];
 
     $function = new functions;
 
     $error = array();
 
     $data = array();
+
+    $password = "";
 
     if (empty($username)) {
         $error['email'] = "<span class='label label-rose'>*Digite seu email.</span>";
@@ -50,13 +54,11 @@ if (isset($_POST['btnReset'])) {
                 $stmt->execute();
                 $reset_result = $stmt;
             }
-            //echo "<h1>$password</h1>";
-            // send new password to user email
-            if ($reset_result) {
-                include("api/email-senha.php");
-            }
+//            if ($reset_result) {
+//                include("api/email-senha.php");
+//            }
         } else {
-            $error['reset_result'] = "<span class='label label-rose'>*Email não encontrado na base de dados.</span>";
+            $error['reset_result'] = "*Email não encontrado na base de dados.";
         }
     }
 }
@@ -107,10 +109,22 @@ if (isset($_POST['btnReset'])) {
 
 </div> <!-- /navbar -->
 
-
 <div class="account-container">
-
     <div class="content clearfix">
+
+        <?php if (isset($error['reset_result'])) { ?>
+            <div class="alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong><?php echo isset($error['reset_result']) ? $error['reset_result'] : ''; ?></strong>
+            </div>
+        <?php } ?>
+
+        <?php if (@$password != "") { ?>
+            <div class='alert-success'>
+                <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                <strong><h2>Sua senha: <b><font color="red"><?php echo $password; ?></font></b> </h2></strong>
+            </div>
+        <?php } ?>
 
         <form method="post">
 
@@ -131,10 +145,8 @@ if (isset($_POST['btnReset'])) {
                 <span class="login-checkbox">
                     <a href="index.php"><label class="choice" for="Field">Voltar</label></a>
 				</span>
-
                 <button class="button btn btn-success btn-large" name="btnReset">Enviar Senha</button>
             </div> <!-- .actions -->
-
         </form>
     </div> <!-- /content -->
 </div> <!-- /account-container -->

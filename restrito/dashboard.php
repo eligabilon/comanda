@@ -57,7 +57,7 @@
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
                 <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary"
-                        @click="deleteComanda(comanda); comandaItem=true; getReadComandas();">Sim
+                        @click="deleteComanda(comanda); getReadComandas();">Sim
                 </button>
             </div>
         </div>
@@ -123,7 +123,7 @@
                                         <span class="shortcut-label">Carros</span> </a>
 
                                     <a href="javascript:;" class="shortcut"
-                                       @click="comandaItem=true; getReadComandas()">
+                                       @click="(comandaItem==false?comandaItem=true:comandaItem=false); editarComanda=false; getReadComandas(); getAllClientes()">
                                         <i class="shortcut-icon icon-file"></i>
                                         <span class="shortcut-label">Orçamentos/Recibos</span> </a>
 

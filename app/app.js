@@ -44,7 +44,7 @@ var app = new Vue({
             newItemComanda: {id: "", qtd: "", descricao_servico: "", vlr_unt: "", vlr_total:"",id_comanda:""},
             clickedItemComanda: {},
             usuarios: [],
-            newUsuario: {id: "", nome: "", email:"", senha:"", data: "", conf_senha:"", nivel:"", situacao:"ATIVO"},
+            newUsuario: {id: "", nome: "", email:"", senha:"", data: "", conf_senha:"", nivel:"", situacao:"ATIVO", termo:""},
             clickedUsuario: {},
 
         },
