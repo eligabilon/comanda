@@ -479,13 +479,8 @@ var app = new Vue({
             },
 
             getimprimirOrcamentoRecibo: function () {
-                app.clickedComanda.id=371;
                 var formData = app.toFormData(app.clickedComanda);
-                axios.post(url + "relatorio/oracamento_recibo.php", formData)
-                    .then(function (response) {
-                        app.app.clickedComanda = {};
-                            window.open(url + 'relatorio/oracamento_recibo.php', '_blank');
-                    });
+                window.open(url + "relatorio/oracamento_recibo.php?id="+app.clickedComanda.id+"", "_blank");
             },
 
             getImprimirRelatorioClean: function () {
@@ -504,6 +499,9 @@ var app = new Vue({
                 app.clickedItemComanda.id_comanda = comanda.id;
                 app.newComanda.obs = comanda.obs;
                 app.clickedComanda = comanda;
+                if(comanda!=null) {
+                    app.clickedComanda.id = comanda.id;
+                }
             },
 
             /////////////////////////////////ITEM-COMANDA///////////////////////////////////////////////////////////////

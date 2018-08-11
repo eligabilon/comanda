@@ -294,11 +294,11 @@
                                                         </form>
 
                                                         <div class="form-actions">
-                                                            <button type="submit" class="btn btn-primary">
+                                                            <a href="javascript:;" class="btn btn-primary">
                                                                 <i class="btn-icon-only icon-print"
-                                                                   @click="selectItemComanda(clickedItemComanda); getimprimirOrcamentoRecibo();"
+                                                                   @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo();"
                                                                    title="Imprimir Orçamento/Recibo"> Imprimir </i>
-                                                            </button>Ao Imprimir a Comanda será fechada.
+                                                            </a> Ao Imprimir a Comanda será fechada.
                                                         </div> <!-- /form-actions -->
                                                     </div>
                                                 </fieldset>

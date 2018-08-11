@@ -1,9 +1,8 @@
 <?php
-include('mpdf60/mpdf.php');
 include('../conect.php');
 
-$id = $_POST['id'];
-$id=98;
+@$id = $_GET['id'];
+
 if (!empty($id)) {
     $objs = array();
     $result = $conn->query("SELECT tc.id AS id_comanda, tc.tipo, tc.obs, DATE_FORMAT(tc.data, '%d/%m/%Y') AS data, tc.situacao, tc.id_carro, cl.id AS id_cliente, cl.nome, cl.cpf_cnpj, cl.insc_estadual, cl.cel, cl.tel, cl.email FROM tab_comanda tc JOIN tab_carro ca ON ca.id = tc.id_carro JOIN tab_cliente cl ON cl.id = ca.id_cliente WHERE tc.id = '$id' ");
