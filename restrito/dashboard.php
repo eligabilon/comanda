@@ -107,7 +107,7 @@
                     <div class="span6">
                         <div class="widget">
                             <div class="widget-header"><i class="icon-bookmark"></i>
-                                <h3>Todos as Relações</h3>
+                                <h3>Menus</h3>
                             </div>
                             <!-- /widget-header -->
                             <div class="widget-content">
@@ -130,6 +130,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+
+                    <div class="alert alert-error" v-if="errorMessage">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>{{errorMessage}}</strong>
+                    </div>
+
+                    <div class="alert alert-success" v-if="successMessage">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>{{successMessage}}</strong>
                     </div>
 
                     <!--inicio -->
@@ -205,7 +216,17 @@
                                                                 <td> {{comanda.obs}}</td>
                                                                 <td> {{comanda.tipo}}</td>
                                                                 <td> R$ {{numberToReal(comanda.total_geral)}}</td>
-                                                                <td> {{comanda.situacao}}</td>
+                                                                <td>
+                                                                    {{comanda.situacao}}
+                                                                    <br>
+                                                                    <a href="javascript:;"
+                                                                       class="btn btn-small btn-warning"
+                                                                       title="Fechar Recibo"
+                                                                       v-if="(comanda.situacao!='FECHADA' && comanda.tipo=='RECIBO')"
+                                                                       @click="selectComanda(comanda); fecharRecibo(); getReadComandas();">
+                                                                         Fechar
+                                                                    </a>
+                                                                </td>
                                                                 <td class="td-actions">
                                                                     <a href="javascript:;"
                                                                        class="btn btn-small btn-success"

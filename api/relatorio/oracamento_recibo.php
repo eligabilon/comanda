@@ -2,6 +2,7 @@
 include('../conect.php');
 
 @$id = $_GET['id'];
+@$situacao =$_GET['situacao'];
 
 if (!empty($id)) {
     $objs = array();
@@ -38,6 +39,10 @@ if (!empty($id)) {
     $stm->bindValue(':id', $id);
     $stm->execute();
     $itemComandas = $stm->fetchAll(PDO::FETCH_OBJ);
+
+    if($situacao == "true"){
+        $result = $conn->query("UPDATE `tab_comanda` SET `situacao` = 'FECHADA' WHERE `id` = '$id' ");
+    }
 }
 ?>
 <!DOCTYPE html>

@@ -165,9 +165,8 @@
                                                                       v-model.lazy="clickedComanda.obs"
                                                                       placeholder="Observação sobre o veículo"></textarea>
 
-                                                            <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id != null"
+                                                            <a href="" class="btn btn-small btn-info" v-show="(situacaoComanda!='FECHADA')"
                                                                title="Alterar Comanda"
-                                                               :disabled="situacaoComanda=='FECHADA'"
                                                                @click.prevent="updateComanda(); comandaItem=true; getBuscaClientCarro(); getItemComandasIdCarro(); getTotalGeral(); selectComanda(clickedComanda);"><i
                                                                     class="btn-icon-only icon-save"> </i></a>
                                                         </div>
@@ -272,9 +271,15 @@
                                                 <div class="form-actions">
                                                     <a href="javascript:;" class="btn btn-primary">
                                                         <i class="btn-icon-only icon-print"
-                                                           @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo();"
+                                                           @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo(); fechar=false;"
                                                            title="Imprimir Orçamento/Recibo"> Imprimir </i>
-                                                    </a> Ao Imprimir a Comanda será fechada.
+                                                    </a>
+
+                                                    <a href="javascript:;" class="btn btn-danger" v-if="radioButtonComanda=='RECIBO'">
+                                                        <i class="btn-icon-only icon-print"
+                                                           @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo(); fechar=true;"
+                                                           title="Imprimir e Fechar Recibo"> Imprimir e Fechar Recibo</i>
+                                                    </a>
                                                 </div> <!-- /form-actions -->
                                             </div>
                                         </fieldset>

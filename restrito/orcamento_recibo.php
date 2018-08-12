@@ -192,10 +192,16 @@
                                                             <div class="control-group">
                                                                 <label class="control-label">Obs.</label>
                                                                 <div class="controls">
-                                                                        <textarea rows="2" cols="10" class="span7"
+                                                                        <textarea rows="2" cols="10" class="span7" v-if="clickedComanda.obs==null"
                                                                                   id="obs"
                                                                                   v-validate="'min:5|max:500'"
                                                                                   v-model.lazy="newComanda.obs"
+                                                                                  placeholder="Observação sobre o veículo"></textarea>
+                                                                        <textarea rows="2" cols="10" class="span7" v-else
+                                                                                  id="obs"
+                                                                                  v-validate="'min:5|max:500'"
+                                                                                  v-model.lazy="clickedComanda.obs"
+                                                                                  disabled="true"
                                                                                   placeholder="Observação sobre o veículo"></textarea>
 
                                                                     <a href="" class="btn btn-small btn-info" v-if="clickedComanda.id == null"
@@ -296,9 +302,15 @@
                                                         <div class="form-actions">
                                                             <a href="javascript:;" class="btn btn-primary">
                                                                 <i class="btn-icon-only icon-print"
-                                                                   @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo();"
+                                                                   @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo(); fechar=false;"
                                                                    title="Imprimir Orçamento/Recibo"> Imprimir </i>
-                                                            </a> Ao Imprimir a Comanda será fechada.
+                                                            </a>
+
+                                                            <a href="javascript:;" class="btn btn-danger" v-if="radioButtonComanda=='RECIBO'">
+                                                                <i class="btn-icon-only icon-print"
+                                                                   @click="selectComanda(clickedComanda); getimprimirOrcamentoRecibo(); fechar=true;"
+                                                                   title="Imprimir e Fechar Recibo"> Imprimir e Fechar Recibo</i>
+                                                            </a>
                                                         </div> <!-- /form-actions -->
                                                     </div>
                                                 </fieldset>

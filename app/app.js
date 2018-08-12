@@ -17,6 +17,7 @@ var app = new Vue({
             telaCarro: false,
             editarComanda: false,
             imprimir: false,
+            fechar: false,
             radioButtonComanda: "ORÇAMENTO",
             situacaoComanda: "ABERTA",
             errorMessage: "",
@@ -464,6 +465,22 @@ var app = new Vue({
                     });
             },
 
+            fecharRecibo: function () {
+                app.clickedComanda.situacao = 'FECHADA';
+                var formData = app.toFormData(app.clickedComanda);
+                axios.post(url + "api.php?action=update-comanda", formData)
+                    .then(function (response) {
+                        app.clickedComanda = {};
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.clickedComanda.id = response.data.id[0];
+                            app.getReadComandas();
+                        }
+                    });
+            },
+
             deleteComanda: function () {
                 var formData = app.toFormData(app.clickedComanda);
                 axios.post(url + "api.php?action=delete-comanda", formData)
@@ -474,13 +491,14 @@ var app = new Vue({
                         } else {
                             app.successMessage = response.data.message;
                             app.getComandasIdCarro();
+                            app.getReadComandas();
                         }
                     });
             },
 
             getimprimirOrcamentoRecibo: function () {
                 var formData = app.toFormData(app.clickedComanda);
-                window.open(url + "relatorio/oracamento_recibo.php?id="+app.clickedComanda.id+"", "_blank");
+                window.open(url + "relatorio/oracamento_recibo.php?id="+app.clickedComanda.id+"&&situacao="+app.fechar+"", "_blank");
             },
 
             getImprimirRelatorioClean: function () {

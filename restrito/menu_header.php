@@ -7,8 +7,8 @@
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
-                    <li class="dropdown"><a href="logout.php" class="dropdown-toggle"><i
-                                    class="icon-eye-close"></i><b> Sair </b></a>
+                    <li class="dropdown"><a href="logout.php" class="dropdown-toggle">Bem vindo <u><?=$_SESSION['nome']?></u> | <i
+                                    class="icon-eye-close"></i><b>  Sair </b></a>
                     </li>
                 </ul>
             </div>

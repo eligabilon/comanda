@@ -25,7 +25,7 @@ if (isset($_POST['btnLogin'])) {
 
     if (!empty($username) && !empty($password)) {
 
-        $username = strtolower($username);
+        $username = (string) strtolower($username);
 
         $password = hash('sha256', $username . $password);
 
@@ -49,7 +49,7 @@ if (isset($_POST['btnLogin'])) {
                 $_SESSION['timeout'] = $currentTime + $expired;
                 header("location: restrito/dashboard.php");
             } else {
-                $error['failed'] = "<span class='label label-rose'>Email ou senha inválidos!</span>";
+                $error['failed'] = "*Email ou senha inválidos!";
             }
         }
     }
@@ -99,16 +99,21 @@ if (isset($_POST['btnLogin'])) {
     </div> <!-- /navbar-inner -->
 
 </div> <!-- /navbar -->
+<script src="js/jquery-1.7.2.min.js"></script>
 
 
 <div class="account-container">
 
+    <?php if (isset($error['failed'])) { ?>
+        <div class="alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong><?php echo isset($error['failed']) ? $error['failed'] : ''; ?></strong>
+        </div>
+    <?php } ?>
+
     <div class="content clearfix">
-
         <form method="post">
-
             <h1>Fazer Login</h1>
-
             <div class="login-fields">
                 <p></p>
 
@@ -137,9 +142,6 @@ if (isset($_POST['btnLogin'])) {
         </form>
     </div> <!-- /content -->
 </div> <!-- /account-container -->
-
-
-<script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/bootstrap.js"></script>
 
 <script src="js/signin.js"></script>

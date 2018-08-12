@@ -322,7 +322,7 @@ if ($action == 'create-usuario') {
     $res['id'] = array();
     $id = $_POST['id'];
     $nome = $_POST['nome'];
-    $email = $_POST['email'];
+    $email = (string) strtolower($_POST['email']);
     $senha = $_POST['senha'];
     $situacao = $_POST['situacao'];
 
@@ -411,28 +411,9 @@ if ($action == 'update-comanda') {
     $id = $_POST['id'];
     $tipo = $_POST['tipo'];
     $obs = $_POST['obs'];
+    $situacao = $_POST['situacao'];
     if (!empty($id)) {
-        $result = $conn->query("UPDATE `tab_comanda` SET `tipo` = '$tipo', `obs` = '$obs' WHERE `id` = '$id' ");
-        $res['id'] = $id;
-        if ($result) {
-            $res['message'] = "Registro alterado com sucesso...";
-        } else {
-            $res['error'] = true;
-            $res['message'] = "Falha ao alterar registro!";
-        }
-    }
-}
-
-if ($action == 'update-usuario') {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-
-    $senha = hash('sha256', $email . $senha);
-
-    if (!empty($id)) {
-        $result = $conn->query("UPDATE `tab_user4x4` SET `nome` = '$nome', `senha` = '$senha' WHERE `id` = '$id' ");
+        $result = $conn->query("UPDATE `tab_comanda` SET `tipo` = '$tipo', `obs` = '$obs', `situacao` = '$situacao' WHERE `id` = '$id' ");
         $res['id'] = $id;
         if ($result) {
             $res['message'] = "Registro alterado com sucesso...";
